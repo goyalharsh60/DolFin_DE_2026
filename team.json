@@ -1,0 +1,10 @@
+{
+    "TeamId" : "T0019",
+    "Members" : [
+        {"name":"Harsh Goyal","id":"2501010179","github":"goyalharsh60","section":"B","lead":true},
+        {"name":"Dipesh Singla","id":"2501010147","github":"dipeshsingla0049","section":"B"},
+        {"name":"Darsh Bansal","id":"2501010131","github":"Darsh-Bansal","section":"B"},
+        {"name":"Vishaldeep","id":"2501010514","github":"vishalmujaidia","section":"D"}
+    ],
+    "Repo-URL":" https://github.com/goyalharsh60/DolFin_DE_2026"
+}
