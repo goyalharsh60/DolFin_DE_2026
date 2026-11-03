@@ -22,12 +22,12 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Harsh Goyal | 2501010179 | goyalharsh60 |
+| Member 2 | Dipesh Singla | 2501010147| dipeshsingla0049|
+| Member 3 | Darsh Bansal | 2501010131 | Darsh-Bansal |
+| Member 4 | Vishaldeep | 2501010514 | vishalmujaidia  |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** T0019 · **Section:** B,B,B,D · **Repository URL:** https://github.com/goyalharsh60/DolFin_DE_2026
 
 ---
 
