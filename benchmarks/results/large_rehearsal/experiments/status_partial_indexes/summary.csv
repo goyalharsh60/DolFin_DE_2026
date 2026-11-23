@@ -1,0 +1,9 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,3.331,3.205,2.320,4.468,Seq Scan on localities | Bitmap Heap Scan on properties | Bitmap Index Scan on idx_x_active_search
+R02,READ,8.650,6.022,4.573,15.356,Seq Scan on localities | Bitmap Heap Scan on properties | Bitmap Index Scan on idx_x_active_search
+R14,READ,293.756,271.738,271.731,337.798,Seq Scan on properties | Seq Scan on users
+R17,READ,649.114,674.633,581.263,691.445,Seq Scan on enquiries | Seq Scan on properties
+R18,READ,863.133,876.399,766.955,946.046,Bitmap Heap Scan on properties | Bitmap Index Scan on idx_x_active_posted
+R19,READ,249.746,244.384,242.267,262.588,Seq Scan on properties | Seq Scan on localities | Index Only Scan using idx_enq_property_user on enquiries
+W04,WRITE,18320.774,18269.151,18126.830,18566.340,Bitmap Heap Scan on properties | Bitmap Index Scan on idx_x_active_posted
+W05,WRITE,0.673,0.672,0.578,0.768,Index Scan using idx_prop_lister on properties | Index Scan using properties_pkey on properties

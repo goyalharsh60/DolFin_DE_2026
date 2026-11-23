@@ -1,0 +1,42 @@
+=== W04 run 1 ===
+Update on properties  (cost=13254.75..79479.92 rows=0 width=0) (actual time=18126.762..18126.763 rows=0 loops=1)
+  Buffers: shared hit=6058987 read=827376 dirtied=844721 written=854367
+  ->  Bitmap Heap Scan on properties  (cost=13254.75..79479.92 rows=575267 width=44) (actual time=22.210..408.012 rows=288800 loops=1)
+        Recheck Cond: ((posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)) AND ((status)::text = 'ACTIVE'::text))
+        Heap Blocks: exact=43362
+        Buffers: shared hit=58 read=44413 written=40679
+        ->  Bitmap Index Scan on idx_x_active_posted  (cost=0.00..13110.93 rows=575267 width=0) (actual time=16.427..16.427 rows=288800 loops=1)
+              Index Cond: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+              Buffers: shared read=1109
+Planning:
+  Buffers: shared hit=263
+Planning Time: 0.467 ms
+Execution Time: 18126.830 ms
+=== W04 run 2 ===
+Update on properties  (cost=13295.77..79714.34 rows=0 width=0) (actual time=18566.256..18566.258 rows=0 loops=1)
+  Buffers: shared hit=6262306 read=904098 dirtied=863097 written=855357
+  ->  Bitmap Heap Scan on properties  (cost=13295.77..79714.34 rows=576947 width=44) (actual time=25.737..621.437 rows=288800 loops=1)
+        Recheck Cond: ((posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)) AND ((status)::text = 'ACTIVE'::text))
+        Heap Blocks: exact=43362
+        Buffers: shared hit=9540 read=34931 dirtied=34370 written=32671
+        ->  Bitmap Index Scan on idx_x_active_posted  (cost=0.00..13151.53 rows=576947 width=0) (actual time=19.751..19.751 rows=288800 loops=1)
+              Index Cond: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+              Buffers: shared read=1109 written=1020
+Planning:
+  Buffers: shared hit=225 read=38 written=38
+Planning Time: 0.758 ms
+Execution Time: 18566.340 ms
+=== W04 run 3 ===
+Update on properties  (cost=13338.05..79968.88 rows=0 width=0) (actual time=18269.061..18269.063 rows=0 loops=1)
+  Buffers: shared hit=6407823 read=962544 dirtied=867234 written=851806
+  ->  Bitmap Heap Scan on properties  (cost=13338.05..79968.88 rows=578790 width=44) (actual time=27.814..339.587 rows=288800 loops=1)
+        Recheck Cond: ((posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)) AND ((status)::text = 'ACTIVE'::text))
+        Heap Blocks: exact=43362
+        Buffers: shared hit=9602 read=34869 dirtied=1254 written=30895
+        ->  Bitmap Index Scan on idx_x_active_posted  (cost=0.00..13193.35 rows=578790 width=0) (actual time=21.809..21.810 rows=288800 loops=1)
+              Index Cond: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+              Buffers: shared read=1109 written=1008
+Planning:
+  Buffers: shared hit=225 read=38 written=28
+Planning Time: 0.759 ms
+Execution Time: 18269.151 ms

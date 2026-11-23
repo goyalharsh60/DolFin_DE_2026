@@ -1,0 +1,36 @@
+=== R05 run 1 ===
+Limit  (cost=0.43..2558.40 rows=200 width=28) (actual time=0.350..3.665 rows=200 loops=1)
+  Buffers: shared hit=49 read=703
+  ->  Index Scan using idx_prop_map on properties  (cost=0.43..18980.55 rows=1484 width=28) (actual time=0.349..3.651 rows=200 loops=1)
+        Index Cond: (((listing_type)::text = 'RENT'::text) AND (latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65))
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 540
+        Buffers: shared hit=49 read=703
+Planning:
+  Buffers: shared hit=243
+Planning Time: 0.463 ms
+Execution Time: 3.693 ms
+=== R05 run 2 ===
+Limit  (cost=0.43..2558.40 rows=200 width=28) (actual time=0.180..1.235 rows=200 loops=1)
+  Buffers: shared hit=752
+  ->  Index Scan using idx_prop_map on properties  (cost=0.43..18980.55 rows=1484 width=28) (actual time=0.179..1.222 rows=200 loops=1)
+        Index Cond: (((listing_type)::text = 'RENT'::text) AND (latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65))
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 540
+        Buffers: shared hit=752
+Planning:
+  Buffers: shared hit=243
+Planning Time: 0.472 ms
+Execution Time: 1.263 ms
+=== R05 run 3 ===
+Limit  (cost=0.43..2558.40 rows=200 width=28) (actual time=0.174..1.359 rows=200 loops=1)
+  Buffers: shared hit=752
+  ->  Index Scan using idx_prop_map on properties  (cost=0.43..18980.55 rows=1484 width=28) (actual time=0.173..1.347 rows=200 loops=1)
+        Index Cond: (((listing_type)::text = 'RENT'::text) AND (latitude >= 12.90) AND (latitude <= 13.00) AND (longitude >= 77.55) AND (longitude <= 77.65))
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 540
+        Buffers: shared hit=752
+Planning:
+  Buffers: shared hit=243
+Planning Time: 0.453 ms
+Execution Time: 1.383 ms

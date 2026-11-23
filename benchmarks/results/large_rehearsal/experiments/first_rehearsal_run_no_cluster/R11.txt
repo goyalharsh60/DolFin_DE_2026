@@ -1,0 +1,51 @@
+=== R11 run 1 ===
+GroupAggregate  (cost=77.48..77.86 rows=9 width=79) (actual time=0.345..0.351 rows=8 loops=1)
+  Group Key: bhk, listing_type
+  Buffers: shared hit=26 read=35
+  ->  Sort  (cost=77.48..77.53 rows=19 width=13) (actual time=0.333..0.335 rows=19 loops=1)
+        Sort Key: bhk, listing_type
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=26 read=35
+        ->  Index Scan using idx_prop_project on properties  (cost=0.43..77.08 rows=19 width=13) (actual time=0.089..0.306 rows=19 loops=1)
+              Index Cond: (project_id = 217)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 33
+              Buffers: shared hit=20 read=35
+Planning:
+  Buffers: shared hit=263 read=22
+Planning Time: 0.523 ms
+Execution Time: 0.405 ms
+=== R11 run 2 ===
+GroupAggregate  (cost=77.48..77.86 rows=9 width=79) (actual time=0.182..0.187 rows=8 loops=1)
+  Group Key: bhk, listing_type
+  Buffers: shared hit=61
+  ->  Sort  (cost=77.48..77.53 rows=19 width=13) (actual time=0.173..0.174 rows=19 loops=1)
+        Sort Key: bhk, listing_type
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=61
+        ->  Index Scan using idx_prop_project on properties  (cost=0.43..77.08 rows=19 width=13) (actual time=0.039..0.145 rows=19 loops=1)
+              Index Cond: (project_id = 217)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 33
+              Buffers: shared hit=55
+Planning:
+  Buffers: shared hit=285
+Planning Time: 0.481 ms
+Execution Time: 0.236 ms
+=== R11 run 3 ===
+GroupAggregate  (cost=77.48..77.86 rows=9 width=79) (actual time=0.177..0.182 rows=8 loops=1)
+  Group Key: bhk, listing_type
+  Buffers: shared hit=61
+  ->  Sort  (cost=77.48..77.53 rows=19 width=13) (actual time=0.168..0.170 rows=19 loops=1)
+        Sort Key: bhk, listing_type
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=61
+        ->  Index Scan using idx_prop_project on properties  (cost=0.43..77.08 rows=19 width=13) (actual time=0.032..0.141 rows=19 loops=1)
+              Index Cond: (project_id = 217)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 33
+              Buffers: shared hit=55
+Planning:
+  Buffers: shared hit=285
+Planning Time: 0.464 ms
+Execution Time: 0.235 ms

@@ -31,6 +31,20 @@
 
 ---
 
+## Headline numbers
+
+| | Result |
+|---|---|
+| Baseline, 30 queries on the seed data (sum of averages) | 10,174.5 ms |
+| Optimized, same data | 451.2 ms (about 96% less, 23 times faster) |
+| Official large data (about 20x rows), optimized workload | 9,755.5 ms; 24 of 30 performance targets met |
+| Missed targets on large data | R01, R02, R09, R12, R17, W04 (explained in `docs/05_scalability_report.md`) |
+| Wrong-result query found and fixed | R13 (`NOT IN` with NULLs returned 0 rows; `NOT EXISTS` returns 120) |
+| Indexes | 8 indexes, 37 MB on seed, 733 MB on the large data |
+
+Method: every query run 3 times with `EXPLAIN (ANALYZE, BUFFERS)`, average of the 3 reported, raw plans in `benchmarks/results/`.
+Machine: cloud Linux container, 2 vCPU / 8 GB, PostgreSQL 16.15 (not a laptop).
+
 ## How this project works
 
 | Phase | What you do | You submit | Counts toward | Marks |

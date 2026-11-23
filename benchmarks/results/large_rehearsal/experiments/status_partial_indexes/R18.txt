@@ -1,0 +1,75 @@
+=== R18 run 1 ===
+Sort  (cost=152197.83..152393.01 rows=78073 width=22) (actual time=927.070..927.114 rows=1200 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 105kB
+  Buffers: shared hit=591 read=57838 written=10650, temp read=5129 written=7769
+  ->  HashAggregate  (cost=135675.33..145853.41 rows=78073 width=22) (actual time=608.976..926.604 rows=1200 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Planned Partitions: 4  Batches: 21  Memory Usage: 8249kB  Disk Usage: 28000kB
+        Rows Removed by Filter: 733980
+        Buffers: shared hit=588 read=57838 written=10650, temp read=5129 written=7769
+        ->  Bitmap Heap Scan on properties  (cost=15250.21..80688.66 rows=742436 width=14) (actual time=49.570..317.551 rows=736380 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Heap Blocks: exact=55602
+              Buffers: shared hit=588 read=57838 written=10650
+              ->  Bitmap Index Scan on idx_x_active_posted  (cost=0.00..15064.60 rows=742436 width=0) (actual time=41.045..41.046 rows=736380 loops=1)
+                    Buffers: shared read=2824 written=1725
+Planning:
+  Buffers: shared hit=333
+Planning Time: 0.588 ms
+JIT:
+  Functions: 10
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.893 ms, Inlining 0.000 ms, Optimization 0.750 ms, Emission 9.825 ms, Total 11.467 ms
+Execution Time: 946.046 ms
+=== R18 run 2 ===
+Sort  (cost=152197.83..152393.01 rows=78073 width=22) (actual time=859.962..860.006 rows=1200 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 105kB
+  Buffers: shared hit=3 read=58426, temp read=5129 written=7769
+  ->  HashAggregate  (cost=135675.33..145853.41 rows=78073 width=22) (actual time=594.164..859.563 rows=1200 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Planned Partitions: 4  Batches: 21  Memory Usage: 8249kB  Disk Usage: 28000kB
+        Rows Removed by Filter: 733980
+        Buffers: shared read=58426, temp read=5129 written=7769
+        ->  Bitmap Heap Scan on properties  (cost=15250.21..80688.66 rows=742436 width=14) (actual time=47.930..310.110 rows=736380 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Heap Blocks: exact=55602
+              Buffers: shared read=58426
+              ->  Bitmap Index Scan on idx_x_active_posted  (cost=0.00..15064.60 rows=742436 width=0) (actual time=39.324..39.324 rows=736380 loops=1)
+                    Buffers: shared read=2824
+Planning:
+  Buffers: shared hit=293 read=40
+Planning Time: 0.730 ms
+JIT:
+  Functions: 10
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.819 ms, Inlining 0.000 ms, Optimization 0.809 ms, Emission 8.585 ms, Total 10.213 ms
+Execution Time: 876.399 ms
+=== R18 run 3 ===
+Sort  (cost=152197.83..152393.01 rows=78073 width=22) (actual time=751.506..751.551 rows=1200 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 105kB
+  Buffers: shared hit=3 read=58426, temp read=5129 written=7769
+  ->  HashAggregate  (cost=135675.33..145853.41 rows=78073 width=22) (actual time=519.888..751.158 rows=1200 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Planned Partitions: 4  Batches: 21  Memory Usage: 8249kB  Disk Usage: 28000kB
+        Rows Removed by Filter: 733980
+        Buffers: shared read=58426, temp read=5129 written=7769
+        ->  Bitmap Heap Scan on properties  (cost=15250.21..80688.66 rows=742436 width=14) (actual time=42.422..269.990 rows=736380 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Heap Blocks: exact=55602
+              Buffers: shared read=58426
+              ->  Bitmap Index Scan on idx_x_active_posted  (cost=0.00..15064.60 rows=742436 width=0) (actual time=34.324..34.325 rows=736380 loops=1)
+                    Buffers: shared read=2824
+Planning:
+  Buffers: shared hit=293 read=40
+Planning Time: 0.671 ms
+JIT:
+  Functions: 10
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.795 ms, Inlining 0.000 ms, Optimization 0.686 ms, Emission 7.861 ms, Total 9.342 ms
+Execution Time: 766.955 ms
