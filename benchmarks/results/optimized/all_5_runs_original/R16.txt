@@ -1,0 +1,75 @@
+=== R16 run 1 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.500..0.503 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.499..0.500 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.018..0.451 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.381 ms
+Execution Time: 0.529 ms
+=== R16 run 2 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.500..0.504 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.499..0.501 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.038..0.452 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.389 ms
+Execution Time: 0.528 ms
+=== R16 run 3 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.685..0.690 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.683..0.685 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.047..0.618 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.509 ms
+Execution Time: 0.721 ms
+=== R16 run 4 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.463..0.467 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.462..0.463 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.016..0.410 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.394 ms
+Execution Time: 0.488 ms
+=== R16 run 5 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.734..0.739 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.702..0.703 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.024..0.636 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.522 ms
+Execution Time: 0.770 ms

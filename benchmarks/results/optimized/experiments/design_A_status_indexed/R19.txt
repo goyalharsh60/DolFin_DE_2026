@@ -1,0 +1,123 @@
+=== R19 run 1 ===
+Sort  (cost=18591.94..18596.11 rows=1667 width=26) (actual time=16.198..16.308 rows=1780 loops=1)
+  Sort Key: ((SubPlan 1)) DESC
+  Sort Method: quicksort  Memory: 140kB
+  Buffers: shared hit=12730 read=327
+  ->  Hash Join  (cost=793.74..18502.73 rows=1667 width=26) (actual time=1.672..15.899 rows=1780 loops=1)
+        Hash Cond: (p.locality_id = l.locality_id)
+        Buffers: shared hit=12727 read=327
+        ->  Bitmap Heap Scan on properties p  (cost=791.37..3560.10 rows=16669 width=12) (actual time=1.548..9.021 rows=16683 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Filter: ((listing_type)::text = 'SALE'::text)
+              Rows Removed by Filter: 20136
+              Heap Blocks: exact=2219
+              Buffers: shared hit=2369
+              ->  Bitmap Index Scan on idx_prop_dup_check  (cost=0.00..787.20 rows=36582 width=0) (actual time=1.327..1.328 rows=36819 loops=1)
+                    Buffers: shared hit=150
+        ->  Hash  (cost=2.25..2.25 rows=10 width=2) (actual time=0.017..0.018 rows=10 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=2) (actual time=0.004..0.008 rows=10 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 1
+          ->  Aggregate  (cost=4.46..4.47 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=1780)
+                Buffers: shared hit=5015 read=327
+                ->  Index Only Scan using idx_enq_property_user on enquiries e  (cost=0.42..4.45 rows=2 width=0) (actual time=0.002..0.002 rows=1 loops=1780)
+                      Index Cond: (property_id = p.property_id)
+                      Heap Fetches: 0
+                      Buffers: shared hit=5015 read=327
+        SubPlan 2
+          ->  Aggregate  (cost=4.46..4.47 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                Buffers: shared hit=5342
+                ->  Index Only Scan using idx_enq_property_user on enquiries e_1  (cost=0.42..4.45 rows=2 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                      Index Cond: (property_id = p.property_id)
+                      Heap Fetches: 0
+                      Buffers: shared hit=5342
+Planning:
+  Buffers: shared hit=528
+Planning Time: 0.914 ms
+Execution Time: 16.435 ms
+=== R19 run 2 ===
+Sort  (cost=18591.94..18596.11 rows=1667 width=26) (actual time=14.532..14.621 rows=1780 loops=1)
+  Sort Key: ((SubPlan 1)) DESC
+  Sort Method: quicksort  Memory: 140kB
+  Buffers: shared hit=13057
+  ->  Hash Join  (cost=793.74..18502.73 rows=1667 width=26) (actual time=1.566..14.273 rows=1780 loops=1)
+        Hash Cond: (p.locality_id = l.locality_id)
+        Buffers: shared hit=13054
+        ->  Bitmap Heap Scan on properties p  (cost=791.37..3560.10 rows=16669 width=12) (actual time=1.507..8.244 rows=16683 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Filter: ((listing_type)::text = 'SALE'::text)
+              Rows Removed by Filter: 20136
+              Heap Blocks: exact=2219
+              Buffers: shared hit=2369
+              ->  Bitmap Index Scan on idx_prop_dup_check  (cost=0.00..787.20 rows=36582 width=0) (actual time=1.288..1.289 rows=36819 loops=1)
+                    Buffers: shared hit=150
+        ->  Hash  (cost=2.25..2.25 rows=10 width=2) (actual time=0.017..0.018 rows=10 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=2) (actual time=0.003..0.007 rows=10 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 1
+          ->  Aggregate  (cost=4.46..4.47 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                Buffers: shared hit=5342
+                ->  Index Only Scan using idx_enq_property_user on enquiries e  (cost=0.42..4.45 rows=2 width=0) (actual time=0.001..0.001 rows=1 loops=1780)
+                      Index Cond: (property_id = p.property_id)
+                      Heap Fetches: 0
+                      Buffers: shared hit=5342
+        SubPlan 2
+          ->  Aggregate  (cost=4.46..4.47 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                Buffers: shared hit=5342
+                ->  Index Only Scan using idx_enq_property_user on enquiries e_1  (cost=0.42..4.45 rows=2 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                      Index Cond: (property_id = p.property_id)
+                      Heap Fetches: 0
+                      Buffers: shared hit=5342
+Planning:
+  Buffers: shared hit=528
+Planning Time: 0.906 ms
+Execution Time: 14.774 ms
+=== R19 run 3 ===
+Sort  (cost=18591.94..18596.11 rows=1667 width=26) (actual time=15.176..15.259 rows=1780 loops=1)
+  Sort Key: ((SubPlan 1)) DESC
+  Sort Method: quicksort  Memory: 140kB
+  Buffers: shared hit=13057
+  ->  Hash Join  (cost=793.74..18502.73 rows=1667 width=26) (actual time=1.513..14.882 rows=1780 loops=1)
+        Hash Cond: (p.locality_id = l.locality_id)
+        Buffers: shared hit=13054
+        ->  Bitmap Heap Scan on properties p  (cost=791.37..3560.10 rows=16669 width=12) (actual time=1.459..8.873 rows=16683 loops=1)
+              Recheck Cond: ((status)::text = 'ACTIVE'::text)
+              Filter: ((listing_type)::text = 'SALE'::text)
+              Rows Removed by Filter: 20136
+              Heap Blocks: exact=2219
+              Buffers: shared hit=2369
+              ->  Bitmap Index Scan on idx_prop_dup_check  (cost=0.00..787.20 rows=36582 width=0) (actual time=1.240..1.240 rows=36819 loops=1)
+                    Buffers: shared hit=150
+        ->  Hash  (cost=2.25..2.25 rows=10 width=2) (actual time=0.015..0.016 rows=10 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=10 width=2) (actual time=0.004..0.007 rows=10 loops=1)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 90
+                    Buffers: shared hit=1
+        SubPlan 1
+          ->  Aggregate  (cost=4.46..4.47 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                Buffers: shared hit=5342
+                ->  Index Only Scan using idx_enq_property_user on enquiries e  (cost=0.42..4.45 rows=2 width=0) (actual time=0.001..0.001 rows=1 loops=1780)
+                      Index Cond: (property_id = p.property_id)
+                      Heap Fetches: 0
+                      Buffers: shared hit=5342
+        SubPlan 2
+          ->  Aggregate  (cost=4.46..4.47 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                Buffers: shared hit=5342
+                ->  Index Only Scan using idx_enq_property_user on enquiries e_1  (cost=0.42..4.45 rows=2 width=8) (actual time=0.001..0.001 rows=1 loops=1780)
+                      Index Cond: (property_id = p.property_id)
+                      Heap Fetches: 0
+                      Buffers: shared hit=5342
+Planning:
+  Buffers: shared hit=528
+Planning Time: 0.917 ms
+Execution Time: 15.380 ms

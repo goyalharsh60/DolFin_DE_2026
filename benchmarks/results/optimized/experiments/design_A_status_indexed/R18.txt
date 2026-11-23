@@ -1,0 +1,51 @@
+=== R18 run 1 ===
+Sort  (cost=2080.22..2089.96 rows=3896 width=22) (actual time=8.217..8.220 rows=60 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=154
+  ->  GroupAggregate  (cost=0.29..1847.86 rows=3896 width=22) (actual time=0.238..8.188 rows=60 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Rows Removed by Filter: 36699
+        Buffers: shared hit=151
+        ->  Index Only Scan using idx_prop_dup_check on properties  (cost=0.29..1153.02 rows=36582 width=14) (actual time=0.025..2.823 rows=36819 loops=1)
+              Heap Fetches: 0
+              Buffers: shared hit=151
+Planning:
+  Buffers: shared hit=334
+Planning Time: 0.554 ms
+Execution Time: 8.272 ms
+=== R18 run 2 ===
+Sort  (cost=2080.22..2089.96 rows=3896 width=22) (actual time=8.510..8.514 rows=60 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=154
+  ->  GroupAggregate  (cost=0.29..1847.86 rows=3896 width=22) (actual time=0.245..8.445 rows=60 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Rows Removed by Filter: 36699
+        Buffers: shared hit=151
+        ->  Index Only Scan using idx_prop_dup_check on properties  (cost=0.29..1153.02 rows=36582 width=14) (actual time=0.024..2.706 rows=36819 loops=1)
+              Heap Fetches: 0
+              Buffers: shared hit=151
+Planning:
+  Buffers: shared hit=334
+Planning Time: 0.532 ms
+Execution Time: 8.565 ms
+=== R18 run 3 ===
+Sort  (cost=2080.22..2089.96 rows=3896 width=22) (actual time=7.980..7.983 rows=60 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=154
+  ->  GroupAggregate  (cost=0.29..1847.86 rows=3896 width=22) (actual time=0.250..7.953 rows=60 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Rows Removed by Filter: 36699
+        Buffers: shared hit=151
+        ->  Index Only Scan using idx_prop_dup_check on properties  (cost=0.29..1153.02 rows=36582 width=14) (actual time=0.028..2.692 rows=36819 loops=1)
+              Heap Fetches: 0
+              Buffers: shared hit=151
+Planning:
+  Buffers: shared hit=334
+Planning Time: 0.554 ms
+Execution Time: 8.039 ms

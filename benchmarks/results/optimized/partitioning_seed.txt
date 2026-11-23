@@ -1,0 +1,271 @@
+psql:sql/08_partitioning.sql:32: NOTICE:  drop cascades to table housing_part.properties
+DROP SCHEMA
+CREATE SCHEMA
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+DO
+CREATE TABLE
+INSERT 0 120060
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+VACUUM
+ rows_original | rows_partitioned | rows_in_default_partition 
+---------------+------------------+---------------------------
+        120060 |           120060 |                         0
+(1 row)
+
+            partition            | rows 
+---------------------------------+------
+ housing_part.properties_2025_01 | 6815
+ housing_part.properties_2025_02 | 6157
+ housing_part.properties_2025_03 | 6815
+ housing_part.properties_2025_04 | 6593
+ housing_part.properties_2025_05 | 6814
+ housing_part.properties_2025_06 | 6596
+ housing_part.properties_2025_07 | 6815
+ housing_part.properties_2025_08 | 6816
+ housing_part.properties_2025_09 | 6593
+ housing_part.properties_2025_10 | 6815
+ housing_part.properties_2025_11 | 6594
+ housing_part.properties_2025_12 | 6814
+ housing_part.properties_2026_01 | 6816
+ housing_part.properties_2026_02 | 6156
+ housing_part.properties_2026_03 | 6822
+ housing_part.properties_2026_04 | 6603
+ housing_part.properties_2026_05 | 6825
+ housing_part.properties_2026_06 | 6600
+ housing_part.properties_2026_07 |    1
+(19 rows)
+
+--- R20 (June 2026 listings, IST boundaries like the partitions): 1 partition of 20 is scanned
+                                                                          QUERY PLAN                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate
+   Group Key: (properties.posted_at)::date
+   ->  Index Only Scan using properties_2026_06_pkey on properties_2026_06 properties
+         Index Cond: ((posted_at >= '2026-05-31 18:30:00+00'::timestamp with time zone) AND (posted_at < '2026-06-30 18:30:00+00'::timestamp with time zone))
+(4 rows)
+
+--- R22 keyset page: newest-first needs only the newest partitions
+                                                            QUERY PLAN                                                            
+----------------------------------------------------------------------------------------------------------------------------------
+ Limit
+   ->  Merge Append
+         Sort Key: properties.posted_at DESC, properties.property_id DESC
+         ->  Index Scan using properties_2025_01_posted_at_property_id_listed_by_listing__idx on properties_2025_01 properties_1
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_02_posted_at_property_id_listed_by_listing__idx on properties_2025_02 properties_2
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_03_posted_at_property_id_listed_by_listing__idx on properties_2025_03 properties_3
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_04_posted_at_property_id_listed_by_listing__idx on properties_2025_04 properties_4
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_05_posted_at_property_id_listed_by_listing__idx on properties_2025_05 properties_5
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_06_posted_at_property_id_listed_by_listing__idx on properties_2025_06 properties_6
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_07_posted_at_property_id_listed_by_listing__idx on properties_2025_07 properties_7
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_08_posted_at_property_id_listed_by_listing__idx on properties_2025_08 properties_8
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_09_posted_at_property_id_listed_by_listing__idx on properties_2025_09 properties_9
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_10_posted_at_property_id_listed_by_listing__idx on properties_2025_10 properties_10
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_11_posted_at_property_id_listed_by_listing__idx on properties_2025_11 properties_11
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2025_12_posted_at_property_id_listed_by_listing__idx on properties_2025_12 properties_12
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2026_01_posted_at_property_id_listed_by_listing__idx on properties_2026_01 properties_13
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2026_02_posted_at_property_id_listed_by_listing__idx on properties_2026_02 properties_14
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2026_03_posted_at_property_id_listed_by_listing__idx on properties_2026_03 properties_15
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2026_04_posted_at_property_id_listed_by_listing__idx on properties_2026_04 properties_16
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2026_05_posted_at_property_id_listed_by_listing__idx on properties_2026_05 properties_17
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2026_06_posted_at_property_id_listed_by_listing__idx on properties_2026_06 properties_18
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_2026_07_posted_at_property_id_listed_by_listing__idx on properties_2026_07 properties_19
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+         ->  Index Scan using properties_default_posted_at_property_id_listed_by_listing__idx on properties_default properties_20
+               Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+(43 rows)
+
+--- W04 / R17 predicate (older than 120 days before 1 Jul 2026): prunes only the newest months
+                                                                       QUERY PLAN                                                                        
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate
+   ->  Append
+         Subplans Removed: 4
+         ->  Seq Scan on properties_2025_01 properties_1
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_02 properties_2
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_03 properties_3
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_04 properties_4
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_05 properties_5
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_06 properties_6
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_07 properties_7
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_08 properties_8
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_09 properties_9
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_10 properties_10
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_11 properties_11
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2025_12 properties_12
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2026_01 properties_13
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Seq Scan on properties_2026_02 properties_14
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+         ->  Bitmap Heap Scan on properties_2026_03 properties_15
+               Recheck Cond: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+               Filter: ((status)::text = 'ACTIVE'::text)
+               ->  Bitmap Index Scan on properties_2026_03_posted_at_property_id_listed_by_listing__idx
+                     Index Cond: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+         ->  Seq Scan on properties_default properties_16
+               Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+(38 rows)
+
+--- R01 (no time filter): NO pruning, every partition is probed
+                                                              QUERY PLAN                                                               
+---------------------------------------------------------------------------------------------------------------------------------------
+ Append
+   ->  Bitmap Heap Scan on properties_2025_01 p_1
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_01_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_02 p_2
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_02_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_03 p_3
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_03_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_04 p_4
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_04_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_05 p_5
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_05_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_06 p_6
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_06_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_07 p_7
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_07_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_08 p_8
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_08_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_09 p_9
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_09_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_10 p_10
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_10_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_11 p_11
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_11_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2025_12 p_12
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2025_12_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2026_01 p_13
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2026_01_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2026_02 p_14
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2026_02_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2026_03 p_15
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2026_03_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2026_04 p_16
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2026_04_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2026_05 p_17
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2026_05_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Bitmap Heap Scan on properties_2026_06 p_18
+         Recheck Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+         ->  Bitmap Index Scan on properties_2026_06_locality_id_listing_type_property_type_b_idx
+               Index Cond: ((locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+   ->  Seq Scan on properties_2026_07 p_19
+         Filter: ((price <= '40000'::numeric) AND (locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2))
+   ->  Seq Scan on properties_default p_20
+         Filter: ((price <= '40000'::numeric) AND (locality_id = 1) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2))
+(77 rows)
+
+--- R03 (property_id only): primary key probe in every partition
+                                     QUERY PLAN                                     
+------------------------------------------------------------------------------------
+ Append
+   ->  Index Scan using properties_2025_01_pkey on properties_2025_01 properties_1
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_02_pkey on properties_2025_02 properties_2
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_03_pkey on properties_2025_03 properties_3
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_04_pkey on properties_2025_04 properties_4
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_05_pkey on properties_2025_05 properties_5
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_06_pkey on properties_2025_06 properties_6
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_07_pkey on properties_2025_07 properties_7
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_08_pkey on properties_2025_08 properties_8
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_09_pkey on properties_2025_09 properties_9
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_10_pkey on properties_2025_10 properties_10
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_11_pkey on properties_2025_11 properties_11
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2025_12_pkey on properties_2025_12 properties_12
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2026_01_pkey on properties_2026_01 properties_13
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2026_02_pkey on properties_2026_02 properties_14
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2026_03_pkey on properties_2026_03 properties_15
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2026_04_pkey on properties_2026_04 properties_16
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2026_05_pkey on properties_2026_05 properties_17
+         Index Cond: (property_id = 6897)
+   ->  Index Scan using properties_2026_06_pkey on properties_2026_06 properties_18
+         Index Cond: (property_id = 6897)
+   ->  Seq Scan on properties_2026_07 properties_19
+         Filter: (property_id = 6897)
+   ->  Seq Scan on properties_default properties_20
+         Filter: (property_id = 6897)
+(41 rows)
+

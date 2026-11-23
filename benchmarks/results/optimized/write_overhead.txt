@@ -1,0 +1,306 @@
+=== bulk INSERT 20000 properties | database dolfin_plain | run 1 ===
+Insert on properties  (cost=0.29..992.67 rows=0 width=0) (actual time=88.150..88.151 rows=0 loops=1)
+  Buffers: shared hit=61324 read=1 dirtied=424 written=424
+  ->  Limit  (cost=0.29..992.67 rows=20000 width=114) (actual time=0.030..11.285 rows=20000 loops=1)
+        Buffers: shared hit=426
+        ->  Index Scan using properties_pkey on properties properties_1  (cost=0.29..1993.83 rows=40177 width=114) (actual time=0.029..9.168 rows=20000 loops=1)
+              Index Cond: (property_id <= 40000)
+              Buffers: shared hit=426
+Planning:
+  Buffers: shared hit=118
+Planning Time: 0.560 ms
+Trigger for constraint properties_listed_by_fkey: time=75.420 calls=20000
+Trigger for constraint properties_project_id_fkey: time=38.413 calls=20000
+Trigger for constraint properties_locality_id_fkey: time=80.071 calls=20000
+Execution Time: 285.656 ms
+=== bulk INSERT 20000 properties | database dolfin_plain | run 2 ===
+Insert on properties  (cost=0.29..991.91 rows=0 width=0) (actual time=64.343..64.344 rows=0 loops=1)
+  Buffers: shared hit=76836 dirtied=370 written=370
+  ->  Limit  (cost=0.29..991.91 rows=20000 width=114) (actual time=0.022..6.588 rows=20000 loops=1)
+        Buffers: shared hit=426
+        ->  Index Scan using properties_pkey on properties properties_1  (cost=0.29..2323.39 rows=46855 width=114) (actual time=0.021..5.230 rows=20000 loops=1)
+              Index Cond: (property_id <= 40000)
+              Buffers: shared hit=426
+Planning:
+  Buffers: shared hit=123
+Planning Time: 0.356 ms
+Trigger for constraint properties_listed_by_fkey: time=103.902 calls=20000
+Trigger for constraint properties_project_id_fkey: time=46.794 calls=20000
+Trigger for constraint properties_locality_id_fkey: time=98.133 calls=20000
+Execution Time: 317.509 ms
+=== bulk INSERT 20000 properties | database dolfin_plain | run 3 ===
+Insert on properties  (cost=0.29..964.24 rows=0 width=0) (actual time=91.353..91.355 rows=0 loops=1)
+  Buffers: shared hit=76096 dirtied=369 written=369
+  ->  Limit  (cost=0.29..964.24 rows=20000 width=114) (actual time=0.028..9.881 rows=20000 loops=1)
+        Buffers: shared hit=426
+        ->  Index Scan using properties_pkey on properties properties_1  (cost=0.29..2581.32 rows=53551 width=114) (actual time=0.027..7.902 rows=20000 loops=1)
+              Index Cond: (property_id <= 40000)
+              Buffers: shared hit=426
+Planning:
+  Buffers: shared hit=123
+Planning Time: 0.438 ms
+Trigger for constraint properties_listed_by_fkey: time=87.715 calls=20000
+Trigger for constraint properties_project_id_fkey: time=41.305 calls=20000
+Trigger for constraint properties_locality_id_fkey: time=85.025 calls=20000
+Execution Time: 309.194 ms
+=== bulk INSERT 10000 enquiries | database dolfin_plain | run 1 ===
+Insert on enquiries  (cost=0.00..211.80 rows=0 width=0) (actual time=13.583..13.584 rows=0 loops=1)
+  Buffers: shared hit=30521 dirtied=113 written=113
+  ->  Limit  (cost=0.00..211.80 rows=10000 width=49) (actual time=0.007..1.819 rows=10000 loops=1)
+        Buffers: shared hit=87
+        ->  Seq Scan on enquiries enquiries_1  (cost=0.00..2118.00 rows=100000 width=49) (actual time=0.006..1.225 rows=10000 loops=1)
+              Buffers: shared hit=87
+Planning:
+  Buffers: shared hit=66
+Planning Time: 0.198 ms
+Trigger for constraint enquiries_property_id_fkey: time=47.525 calls=10000
+Trigger for constraint enquiries_user_id_fkey: time=39.495 calls=10000
+Execution Time: 101.852 ms
+=== bulk INSERT 10000 enquiries | database dolfin_plain | run 2 ===
+Insert on enquiries  (cost=0.00..211.80 rows=0 width=0) (actual time=15.298..15.299 rows=0 loops=1)
+  Buffers: shared hit=34871 dirtied=87 written=87
+  ->  Limit  (cost=0.00..211.80 rows=10000 width=49) (actual time=0.007..1.705 rows=10000 loops=1)
+        Buffers: shared hit=87
+        ->  Seq Scan on enquiries enquiries_1  (cost=0.00..2327.85 rows=109908 width=49) (actual time=0.006..1.131 rows=10000 loops=1)
+              Buffers: shared hit=87
+Planning:
+  Buffers: shared hit=66
+Planning Time: 0.207 ms
+Trigger for constraint enquiries_property_id_fkey: time=48.173 calls=10000
+Trigger for constraint enquiries_user_id_fkey: time=39.419 calls=10000
+Execution Time: 104.236 ms
+=== bulk INSERT 10000 enquiries | database dolfin_plain | run 3 ===
+Insert on enquiries  (cost=0.00..211.80 rows=0 width=0) (actual time=15.191..15.192 rows=0 loops=1)
+  Buffers: shared hit=34620 dirtied=87 written=87
+  ->  Limit  (cost=0.00..211.80 rows=10000 width=49) (actual time=0.007..1.733 rows=10000 loops=1)
+        Buffers: shared hit=87
+        ->  Seq Scan on enquiries enquiries_1  (cost=0.00..2540.14 rows=119931 width=49) (actual time=0.006..1.118 rows=10000 loops=1)
+              Buffers: shared hit=87
+Planning:
+  Buffers: shared hit=66
+Planning Time: 0.233 ms
+Trigger for constraint enquiries_property_id_fkey: time=45.955 calls=10000
+Trigger for constraint enquiries_user_id_fkey: time=38.999 calls=10000
+Execution Time: 101.374 ms
+=== UPDATE price on 14000 properties | database dolfin_plain | run 1 ===
+Update on properties  (cost=2349.53..8175.55 rows=0 width=0) (actual time=138.951..138.955 rows=0 loops=1)
+  Buffers: shared hit=118042 dirtied=444 written=444
+  ->  Hash Semi Join  (cost=2349.53..8175.55 rows=14000 width=52) (actual time=19.055..54.645 rows=14000 loops=1)
+        Hash Cond: (properties.property_id = "ANY_subquery".property_id)
+        Buffers: shared hit=5300
+        ->  Seq Scan on properties  (cost=0.00..5127.82 rows=179982 width=16) (actual time=0.008..18.221 rows=120060 loops=1)
+              Buffers: shared hit=3328
+        ->  Hash  (cost=2174.53..2174.53 rows=14000 width=32) (actual time=18.992..18.994 rows=14000 loops=1)
+              Buckets: 16384  Batches: 1  Memory Usage: 1003kB
+              Buffers: shared hit=1972
+              ->  Subquery Scan on "ANY_subquery"  (cost=0.29..2174.53 rows=14000 width=32) (actual time=0.026..17.389 rows=14000 loops=1)
+                    Buffers: shared hit=1972
+                    ->  Limit  (cost=0.29..2034.53 rows=14000 width=4) (actual time=0.011..15.832 rows=14000 loops=1)
+                          Buffers: shared hit=1972
+                          ->  Index Scan using properties_pkey on properties properties_1  (cost=0.29..8020.98 rows=55200 width=4) (actual time=0.010..14.965 rows=14000 loops=1)
+                                Filter: ((status)::text = 'ACTIVE'::text)
+                                Rows Removed by Filter: 78916
+                                Buffers: shared hit=1972
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.858 ms
+Execution Time: 139.026 ms
+=== UPDATE price on 14000 properties | database dolfin_plain | run 2 ===
+Update on properties  (cost=2494.42..8757.96 rows=0 width=0) (actual time=143.406..143.412 rows=0 loops=1)
+  Buffers: shared hit=155821 dirtied=270 written=270
+  ->  Hash Semi Join  (cost=2494.42..8757.96 rows=14000 width=52) (actual time=31.472..73.886 rows=14000 loops=1)
+        Hash Cond: (properties.property_id = "ANY_subquery".property_id)
+        Buffers: shared hit=33670
+        ->  Seq Scan on properties  (cost=0.00..5528.43 rows=194043 width=16) (actual time=0.007..20.389 rows=120060 loops=1)
+              Buffers: shared hit=3588
+        ->  Hash  (cost=2319.42..2319.42 rows=14000 width=32) (actual time=31.394..31.397 rows=14000 loops=1)
+              Buckets: 16384  Batches: 1  Memory Usage: 1003kB
+              Buffers: shared hit=30082
+              ->  Subquery Scan on "ANY_subquery"  (cost=0.42..2319.42 rows=14000 width=32) (actual time=0.031..29.146 rows=14000 loops=1)
+                    Buffers: shared hit=30082
+                    ->  Limit  (cost=0.42..2179.42 rows=14000 width=4) (actual time=0.018..27.385 rows=14000 loops=1)
+                          Buffers: shared hit=30082
+                          ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..9263.17 rows=59513 width=4) (actual time=0.016..26.506 rows=14000 loops=1)
+                                Filter: ((status)::text = 'ACTIVE'::text)
+                                Rows Removed by Filter: 78916
+                                Buffers: shared hit=30082
+Planning:
+  Buffers: shared hit=245
+Planning Time: 1.185 ms
+Execution Time: 143.529 ms
+=== UPDATE price on 14000 properties | database dolfin_plain | run 3 ===
+Update on properties  (cost=2467.97..9167.35 rows=0 width=0) (actual time=132.230..132.235 rows=0 loops=1)
+  Buffers: shared hit=166060 dirtied=271 written=271
+  ->  Hash Semi Join  (cost=2467.97..9167.35 rows=14000 width=52) (actual time=29.968..66.535 rows=14000 loops=1)
+        Hash Cond: (properties.property_id = "ANY_subquery".property_id)
+        Buffers: shared hit=43224
+        ->  Seq Scan on properties  (cost=0.00..5927.50 rows=208050 width=16) (actual time=0.003..18.836 rows=120060 loops=1)
+              Buffers: shared hit=3847
+        ->  Hash  (cost=2292.97..2292.97 rows=14000 width=32) (actual time=29.907..29.910 rows=14000 loops=1)
+              Buckets: 16384  Batches: 1  Memory Usage: 1003kB
+              Buffers: shared hit=39377
+              ->  Subquery Scan on "ANY_subquery"  (cost=0.42..2292.97 rows=14000 width=32) (actual time=0.027..28.158 rows=14000 loops=1)
+                    Buffers: shared hit=39377
+                    ->  Limit  (cost=0.42..2152.97 rows=14000 width=4) (actual time=0.011..26.533 rows=14000 loops=1)
+                          Buffers: shared hit=39377
+                          ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..9811.30 rows=63809 width=4) (actual time=0.010..25.630 rows=14000 loops=1)
+                                Filter: ((status)::text = 'ACTIVE'::text)
+                                Rows Removed by Filter: 78916
+                                Buffers: shared hit=39377
+Planning:
+  Buffers: shared hit=260
+Planning Time: 0.926 ms
+Execution Time: 132.302 ms
+=== bulk INSERT 20000 properties | database dolfin | run 1 ===
+Insert on properties  (cost=0.42..1281.28 rows=0 width=0) (actual time=512.821..512.823 rows=0 loops=1)
+  Buffers: shared hit=328888 read=12349 dirtied=12602 written=11111
+  ->  Limit  (cost=0.42..1281.28 rows=20000 width=114) (actual time=0.032..14.768 rows=20000 loops=1)
+        Buffers: shared hit=28 read=545 written=486
+        ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..2588.72 rows=40415 width=114) (actual time=0.031..12.802 rows=20000 loops=1)
+              Index Cond: (property_id <= 40000)
+              Buffers: shared hit=28 read=545 written=486
+Planning:
+  Buffers: shared hit=245 read=23
+Planning Time: 0.546 ms
+Trigger for constraint properties_listed_by_fkey: time=152.938 calls=20000
+Trigger for constraint properties_project_id_fkey: time=63.200 calls=20000
+Trigger for constraint properties_locality_id_fkey: time=127.288 calls=20000
+Execution Time: 861.825 ms
+=== bulk INSERT 20000 properties | database dolfin | run 2 ===
+Insert on properties  (cost=0.42..1252.10 rows=0 width=0) (actual time=397.014..397.016 rows=0 loops=1)
+  Buffers: shared hit=396409 read=630 dirtied=852 written=1338
+  ->  Limit  (cost=0.42..1252.10 rows=20000 width=114) (actual time=0.033..11.017 rows=20000 loops=1)
+        Buffers: shared hit=287 read=286 written=242
+        ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..2951.50 rows=47154 width=114) (actual time=0.032..9.170 rows=20000 loops=1)
+              Index Cond: (property_id <= 40000)
+              Buffers: shared hit=287 read=286 written=242
+Planning:
+  Buffers: shared hit=246 read=22
+Planning Time: 0.591 ms
+Trigger for constraint properties_listed_by_fkey: time=101.696 calls=20000
+Trigger for constraint properties_project_id_fkey: time=48.176 calls=20000
+Trigger for constraint properties_locality_id_fkey: time=98.707 calls=20000
+Execution Time: 649.591 ms
+=== bulk INSERT 20000 properties | database dolfin | run 3 ===
+Insert on properties  (cost=0.42..1203.73 rows=0 width=0) (actual time=378.728..378.730 rows=0 loops=1)
+  Buffers: shared hit=397539 dirtied=505 written=680
+  ->  Limit  (cost=0.42..1203.73 rows=20000 width=114) (actual time=0.022..8.973 rows=20000 loops=1)
+        Buffers: shared hit=573
+        ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..3241.96 rows=53877 width=114) (actual time=0.021..7.347 rows=20000 loops=1)
+              Index Cond: (property_id <= 40000)
+              Buffers: shared hit=573
+Planning:
+  Buffers: shared hit=268
+Planning Time: 0.514 ms
+Trigger for constraint properties_listed_by_fkey: time=95.309 calls=20000
+Trigger for constraint properties_project_id_fkey: time=53.101 calls=20000
+Trigger for constraint properties_locality_id_fkey: time=89.301 calls=20000
+Execution Time: 620.414 ms
+=== bulk INSERT 10000 enquiries | database dolfin | run 1 ===
+Insert on enquiries  (cost=0.00..211.84 rows=0 width=0) (actual time=63.381..63.383 rows=0 loops=1)
+  Buffers: shared hit=89077 read=1660 dirtied=1680 written=1675
+  ->  Limit  (cost=0.00..211.84 rows=10000 width=49) (actual time=0.049..2.708 rows=10000 loops=1)
+        Buffers: shared read=87 written=86
+        ->  Seq Scan on enquiries enquiries_1  (cost=0.00..2117.46 rows=99957 width=49) (actual time=0.047..1.995 rows=10000 loops=1)
+              Buffers: shared read=87 written=86
+Planning:
+  Buffers: shared hit=102 read=6
+Planning Time: 0.357 ms
+Trigger for constraint enquiries_property_id_fkey: time=87.091 calls=10000
+Trigger for constraint enquiries_user_id_fkey: time=45.945 calls=10000
+Execution Time: 197.740 ms
+=== bulk INSERT 10000 enquiries | database dolfin | run 2 ===
+Insert on enquiries  (cost=0.00..211.84 rows=0 width=0) (actual time=51.274..51.275 rows=0 loops=1)
+  Buffers: shared hit=94783 read=94 dirtied=123 written=271
+  ->  Limit  (cost=0.00..211.84 rows=10000 width=49) (actual time=0.013..2.547 rows=10000 loops=1)
+        Buffers: shared hit=1 read=86 written=86
+        ->  Seq Scan on enquiries enquiries_1  (cost=0.00..2327.26 rows=109861 width=49) (actual time=0.011..1.833 rows=10000 loops=1)
+              Buffers: shared hit=1 read=86 written=86
+Planning:
+  Buffers: shared hit=96 read=12 written=12
+Planning Time: 0.329 ms
+Trigger for constraint enquiries_property_id_fkey: time=55.706 calls=10000
+Trigger for constraint enquiries_user_id_fkey: time=43.945 calls=10000
+Execution Time: 152.239 ms
+=== bulk INSERT 10000 enquiries | database dolfin | run 3 ===
+Insert on enquiries  (cost=0.00..211.84 rows=0 width=0) (actual time=51.726..51.728 rows=0 loops=1)
+  Buffers: shared hit=94628 dirtied=90 written=180
+  ->  Limit  (cost=0.00..211.84 rows=10000 width=49) (actual time=0.006..2.756 rows=10000 loops=1)
+        Buffers: shared hit=87
+        ->  Seq Scan on enquiries enquiries_1  (cost=0.00..2539.49 rows=119879 width=49) (actual time=0.005..2.060 rows=10000 loops=1)
+              Buffers: shared hit=87
+Planning:
+  Buffers: shared hit=108
+Planning Time: 0.304 ms
+Trigger for constraint enquiries_property_id_fkey: time=54.641 calls=10000
+Trigger for constraint enquiries_user_id_fkey: time=42.796 calls=10000
+Execution Time: 150.503 ms
+=== UPDATE price on 14000 properties | database dolfin | run 1 ===
+Update on properties  (cost=2866.57..9539.27 rows=0 width=0) (actual time=417.460..417.465 rows=0 loops=1)
+  Buffers: shared hit=310881 read=6270 dirtied=5731 written=4994
+  ->  Hash Semi Join  (cost=2866.57..9539.27 rows=14000 width=52) (actual time=37.561..91.728 rows=14000 loops=1)
+        Hash Cond: (properties.property_id = "ANY_subquery".property_id)
+        Buffers: shared hit=5265 read=1551 dirtied=367 written=485
+        ->  Seq Scan on properties  (cost=0.00..5974.15 rows=180115 width=16) (actual time=0.024..23.705 rows=120060 loops=1)
+              Buffers: shared hit=2776 read=1397 dirtied=367 written=399
+        ->  Hash  (cost=2691.57..2691.57 rows=14000 width=32) (actual time=37.440..37.443 rows=14000 loops=1)
+              Buckets: 16384  Batches: 1  Memory Usage: 1003kB
+              Buffers: shared hit=2489 read=154 written=86
+              ->  Subquery Scan on "ANY_subquery"  (cost=0.42..2691.57 rows=14000 width=32) (actual time=0.041..33.602 rows=14000 loops=1)
+                    Buffers: shared hit=2489 read=154 written=86
+                    ->  Limit  (cost=0.42..2551.57 rows=14000 width=4) (actual time=0.018..30.884 rows=14000 loops=1)
+                          Buffers: shared hit=2489 read=154 written=86
+                          ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..10028.43 rows=55031 width=4) (actual time=0.017..29.548 rows=14000 loops=1)
+                                Filter: ((status)::text = 'ACTIVE'::text)
+                                Rows Removed by Filter: 78916
+                                Buffers: shared hit=2489 read=154 written=86
+Planning:
+  Buffers: shared hit=392 read=6
+Planning Time: 1.897 ms
+Execution Time: 417.608 ms
+=== UPDATE price on 14000 properties | database dolfin | run 2 ===
+Update on properties  (cost=2866.21..9542.01 rows=0 width=0) (actual time=416.566..416.572 rows=0 loops=1)
+  Buffers: shared hit=312509 read=4042 dirtied=2598 written=2125
+  ->  Hash Semi Join  (cost=2866.21..9542.01 rows=14000 width=52) (actual time=42.577..97.337 rows=14000 loops=1)
+        Hash Cond: (properties.property_id = "ANY_subquery".property_id)
+        Buffers: shared hit=5822 read=1633 dirtied=146 written=210
+        ->  Seq Scan on properties  (cost=0.00..5977.02 rows=180202 width=16) (actual time=0.009..22.788 rows=120060 loops=1)
+              Buffers: shared hit=2688 read=1487 written=65
+        ->  Hash  (cost=2691.21..2691.21 rows=14000 width=32) (actual time=42.478..42.482 rows=14000 loops=1)
+              Buckets: 16384  Batches: 1  Memory Usage: 1003kB
+              Buffers: shared hit=3134 read=146 dirtied=146 written=145
+              ->  Subquery Scan on "ANY_subquery"  (cost=0.42..2691.21 rows=14000 width=32) (actual time=0.029..39.240 rows=14000 loops=1)
+                    Buffers: shared hit=3134 read=146 dirtied=146 written=145
+                    ->  Limit  (cost=0.42..2551.21 rows=14000 width=4) (actual time=0.017..36.323 rows=14000 loops=1)
+                          Buffers: shared hit=3134 read=146 dirtied=146 written=145
+                          ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..10031.95 rows=55058 width=4) (actual time=0.015..34.817 rows=14000 loops=1)
+                                Filter: ((status)::text = 'ACTIVE'::text)
+                                Rows Removed by Filter: 78916
+                                Buffers: shared hit=3134 read=146 dirtied=146 written=145
+Planning:
+  Buffers: shared hit=279 read=132 dirtied=14 written=130
+Planning Time: 2.826 ms
+Execution Time: 416.706 ms
+=== UPDATE price on 14000 properties | database dolfin | run 3 ===
+Update on properties  (cost=2865.90..9544.78 rows=0 width=0) (actual time=383.694..383.698 rows=0 loops=1)
+  Buffers: shared hit=314920 read=1701 dirtied=389 written=292
+  ->  Hash Semi Join  (cost=2865.90..9544.78 rows=14000 width=52) (actual time=44.325..94.191 rows=14000 loops=1)
+        Hash Cond: (properties.property_id = "ANY_subquery".property_id)
+        Buffers: shared hit=5972 read=1550 dirtied=235 written=207
+        ->  Seq Scan on properties  (cost=0.00..5979.88 rows=180288 width=16) (actual time=0.008..21.157 rows=120060 loops=1)
+              Buffers: shared hit=2862 read=1315
+        ->  Hash  (cost=2690.90..2690.90 rows=14000 width=32) (actual time=44.208..44.210 rows=14000 loops=1)
+              Buckets: 16384  Batches: 1  Memory Usage: 1003kB
+              Buffers: shared hit=3110 read=235 dirtied=235 written=207
+              ->  Subquery Scan on "ANY_subquery"  (cost=0.42..2690.90 rows=14000 width=32) (actual time=0.027..40.690 rows=14000 loops=1)
+                    Buffers: shared hit=3110 read=235 dirtied=235 written=207
+                    ->  Limit  (cost=0.42..2550.90 rows=14000 width=4) (actual time=0.015..37.831 rows=14000 loops=1)
+                          Buffers: shared hit=3110 read=235 dirtied=235 written=207
+                          ->  Index Scan using properties_pkey on properties properties_1  (cost=0.42..10035.46 rows=55084 width=4) (actual time=0.014..36.524 rows=14000 loops=1)
+                                Filter: ((status)::text = 'ACTIVE'::text)
+                                Rows Removed by Filter: 78916
+                                Buffers: shared hit=3110 read=235 dirtied=235 written=207
+Planning:
+  Buffers: shared hit=265 read=158 dirtied=14 written=158
+Planning Time: 2.217 ms
+Execution Time: 383.817 ms

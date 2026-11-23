@@ -1,0 +1,30 @@
+=== R22 run 1 ===
+Limit  (cost=0.42..3.53 rows=25 width=34) (actual time=0.033..0.040 rows=25 loops=1)
+  Buffers: shared hit=3 read=2
+  ->  Index Scan using idx_prop_posted on properties  (cost=0.42..8728.90 rows=70208 width=34) (actual time=0.032..0.037 rows=25 loops=1)
+        Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+        Buffers: shared hit=3 read=2
+Planning:
+  Buffers: shared hit=247
+Planning Time: 0.456 ms
+Execution Time: 0.069 ms
+=== R22 run 2 ===
+Limit  (cost=0.42..3.53 rows=25 width=34) (actual time=0.024..0.031 rows=25 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using idx_prop_posted on properties  (cost=0.42..8728.90 rows=70208 width=34) (actual time=0.023..0.028 rows=25 loops=1)
+        Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+        Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=247
+Planning Time: 0.445 ms
+Execution Time: 0.059 ms
+=== R22 run 3 ===
+Limit  (cost=0.42..3.53 rows=25 width=34) (actual time=0.023..0.030 rows=25 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using idx_prop_posted on properties  (cost=0.42..8728.90 rows=70208 width=34) (actual time=0.022..0.027 rows=25 loops=1)
+        Index Cond: (ROW(posted_at, property_id) < ROW('2025-11-15 11:18:17+00'::timestamp with time zone, 70045))
+        Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=247
+Planning Time: 0.426 ms
+Execution Time: 0.060 ms

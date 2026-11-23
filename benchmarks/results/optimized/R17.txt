@@ -1,0 +1,63 @@
+=== R17 run 1 ===
+Sort  (cost=9066.55..9107.53 rows=16392 width=16) (actual time=53.057..53.844 rows=8940 loops=1)
+  Sort Key: p.posted_at
+  Sort Method: quicksort  Memory: 734kB
+  Buffers: shared hit=3654
+  ->  Hash Right Anti Join  (cost=5268.69..7919.05 rows=16392 width=16) (actual time=50.194..51.391 rows=8940 loops=1)
+        Hash Cond: (e.property_id = p.property_id)
+        Buffers: shared hit=3651
+        ->  Seq Scan on enquiries e  (cost=0.00..1868.00 rows=100000 width=4) (actual time=0.011..5.609 rows=100000 loops=1)
+              Buffers: shared hit=868
+        ->  Hash  (cost=4884.05..4884.05 rows=30771 width=16) (actual time=30.837..30.838 rows=20006 loops=1)
+              Buckets: 32768  Batches: 1  Memory Usage: 1194kB
+              Buffers: shared hit=2783
+              ->  Seq Scan on properties p  (cost=0.00..4884.05 rows=30771 width=16) (actual time=0.018..26.576 rows=20006 loops=1)
+                    Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '90 days'::interval)))
+                    Rows Removed by Filter: 100054
+                    Buffers: shared hit=2783
+Planning:
+  Buffers: shared hit=421
+Planning Time: 1.107 ms
+Execution Time: 54.161 ms
+=== R17 run 2 ===
+Sort  (cost=9066.55..9107.53 rows=16392 width=16) (actual time=42.736..43.473 rows=8940 loops=1)
+  Sort Key: p.posted_at
+  Sort Method: quicksort  Memory: 734kB
+  Buffers: shared hit=3654
+  ->  Hash Right Anti Join  (cost=5268.69..7919.05 rows=16392 width=16) (actual time=39.776..40.993 rows=8940 loops=1)
+        Hash Cond: (e.property_id = p.property_id)
+        Buffers: shared hit=3651
+        ->  Seq Scan on enquiries e  (cost=0.00..1868.00 rows=100000 width=4) (actual time=0.008..5.696 rows=100000 loops=1)
+              Buffers: shared hit=868
+        ->  Hash  (cost=4884.05..4884.05 rows=30771 width=16) (actual time=21.229..21.230 rows=20006 loops=1)
+              Buckets: 32768  Batches: 1  Memory Usage: 1194kB
+              Buffers: shared hit=2783
+              ->  Seq Scan on properties p  (cost=0.00..4884.05 rows=30771 width=16) (actual time=0.011..18.507 rows=20006 loops=1)
+                    Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '90 days'::interval)))
+                    Rows Removed by Filter: 100054
+                    Buffers: shared hit=2783
+Planning:
+  Buffers: shared hit=421
+Planning Time: 0.687 ms
+Execution Time: 43.787 ms
+=== R17 run 3 ===
+Sort  (cost=9066.55..9107.53 rows=16392 width=16) (actual time=52.721..53.365 rows=8940 loops=1)
+  Sort Key: p.posted_at
+  Sort Method: quicksort  Memory: 734kB
+  Buffers: shared hit=3654
+  ->  Hash Right Anti Join  (cost=5268.69..7919.05 rows=16392 width=16) (actual time=49.855..51.031 rows=8940 loops=1)
+        Hash Cond: (e.property_id = p.property_id)
+        Buffers: shared hit=3651
+        ->  Seq Scan on enquiries e  (cost=0.00..1868.00 rows=100000 width=4) (actual time=0.014..6.149 rows=100000 loops=1)
+              Buffers: shared hit=868
+        ->  Hash  (cost=4884.05..4884.05 rows=30771 width=16) (actual time=28.846..28.848 rows=20006 loops=1)
+              Buckets: 32768  Batches: 1  Memory Usage: 1194kB
+              Buffers: shared hit=2783
+              ->  Seq Scan on properties p  (cost=0.00..4884.05 rows=30771 width=16) (actual time=0.017..24.921 rows=20006 loops=1)
+                    Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '90 days'::interval)))
+                    Rows Removed by Filter: 100054
+                    Buffers: shared hit=2783
+Planning:
+  Buffers: shared hit=421
+Planning Time: 1.030 ms
+Execution Time: 53.689 ms
