@@ -28,7 +28,7 @@ SET search_path TO housing;
 ANALYZE;
 
 -- ---------------------------------------------------------------------
--- Verification 1: row counts must match the project brief
+-- Verification 1: row counts must match the project brief (expected = seed_data; on large_data compare with the faculty counts)
 -- ---------------------------------------------------------------------
 SELECT t.table_name, t.loaded, t.expected,
        CASE WHEN t.loaded = t.expected THEN 'OK' ELSE 'MISMATCH' END AS result
@@ -58,11 +58,13 @@ FROM properties p JOIN projects pj ON pj.project_id = p.project_id
 WHERE p.locality_id <> pj.locality_id;
 
 -- I2. The current price equals the latest price change (where a change exists).
+-- (one pass with DISTINCT ON; the first version probed price_changes once per property with no index
+--  and took >11 minutes on the 20x data. See docs/05_scalability_report.md, 'What broke at scale'.)
 SELECT 'I2 price differs from latest price_change.new_price' AS check_name, count(*) AS violations
 FROM properties p
-JOIN LATERAL (SELECT c.new_price FROM price_changes c
-              WHERE c.property_id = p.property_id
-              ORDER BY c.changed_at DESC LIMIT 1) lc ON true
+JOIN (SELECT DISTINCT ON (property_id) property_id, new_price
+      FROM price_changes
+      ORDER BY property_id, changed_at DESC) lc USING (property_id)
 WHERE p.price <> lc.new_price;
 
 -- I3. Only owners and agents list properties.

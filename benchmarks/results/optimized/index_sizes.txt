@@ -1,0 +1,41 @@
+SET
+-- index sizes (pg_relation_size) vs. table size, measured right after sql/05_indexes.sql on a freshly loaded database
+ table_name  |       index_name        | index_bytes | index_size | table_size | pct_of_table 
+-------------+-------------------------+-------------+------------+------------+--------------
+ enquiries   | idx_enq_created         |     3178496 | 3104 kB    | 6944 kB    |         44.7
+ enquiries   | idx_enq_property_user   |     3178496 | 3104 kB    | 6944 kB    |         44.7
+ properties  | idx_prop_lister         |     3809280 | 3720 kB    | 22 MB      |         16.7
+ properties  | idx_prop_map            |     6012928 | 5872 kB    | 22 MB      |         26.4
+ properties  | idx_prop_posted         |     5971968 | 5832 kB    | 22 MB      |         26.2
+ properties  | idx_prop_project        |     4890624 | 4776 kB    | 22 MB      |         21.5
+ properties  | idx_prop_search         |    10117120 | 9880 kB    | 22 MB      |         44.4
+ site_visits | idx_visit_property_user |     1433600 | 1400 kB    | 2312 kB    |         60.6
+(8 rows)
+
+-- totals
+ new_indexes_total 
+-------------------
+ 37 MB
+(1 row)
+
+ database_size 
+---------------
+ 97 MB
+(1 row)
+
+      relname      |   table    | all_indexes 
+-------------------+------------+-------------
+ properties        | 22 MB      | 32 MB
+ enquiries         | 6944 kB    | 8416 kB
+ users             | 3592 kB    | 4280 kB
+ shortlists        | 3032 kB    | 1552 kB
+ site_visits       | 2312 kB    | 2184 kB
+ price_changes     | 1384 kB    | 528 kB
+ project_amenities | 248 kB     | 168 kB
+ projects          | 120 kB     | 120 kB
+ builders          | 16 kB      | 32 kB
+ localities        | 8192 bytes | 32 kB
+ amenities         | 8192 bytes | 32 kB
+ cities            | 8192 bytes | 32 kB
+(12 rows)
+

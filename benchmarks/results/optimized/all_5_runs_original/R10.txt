@@ -1,0 +1,80 @@
+=== R10 run 1 ===
+Hash Join  (cost=8.31..12.21 rows=1 width=65) (actual time=0.047..0.061 rows=1 loops=1)
+  Hash Cond: (b.builder_id = p.builder_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on builders b  (cost=0.00..3.50 rows=150 width=26) (actual time=0.002..0.010 rows=150 loops=1)
+        Buffers: shared hit=2
+  ->  Hash  (cost=8.29..8.29 rows=1 width=43) (actual time=0.028..0.028 rows=1 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=3
+        ->  Index Scan using uq_projects_rera_id on projects p  (cost=0.28..8.29 rows=1 width=43) (actual time=0.020..0.020 rows=1 loops=1)
+              Index Cond: ((rera_id)::text = 'TS-RERA-PR-11726342'::text)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.538 ms
+Execution Time: 0.096 ms
+=== R10 run 2 ===
+Hash Join  (cost=8.31..12.21 rows=1 width=65) (actual time=0.235..0.252 rows=1 loops=1)
+  Hash Cond: (b.builder_id = p.builder_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on builders b  (cost=0.00..3.50 rows=150 width=26) (actual time=0.003..0.012 rows=150 loops=1)
+        Buffers: shared hit=2
+  ->  Hash  (cost=8.29..8.29 rows=1 width=43) (actual time=0.033..0.034 rows=1 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=3
+        ->  Index Scan using uq_projects_rera_id on projects p  (cost=0.28..8.29 rows=1 width=43) (actual time=0.022..0.023 rows=1 loops=1)
+              Index Cond: ((rera_id)::text = 'TS-RERA-PR-11726342'::text)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=243
+Planning Time: 0.518 ms
+Execution Time: 0.289 ms
+=== R10 run 3 ===
+Hash Join  (cost=8.31..12.21 rows=1 width=65) (actual time=0.073..0.099 rows=1 loops=1)
+  Hash Cond: (b.builder_id = p.builder_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on builders b  (cost=0.00..3.50 rows=150 width=26) (actual time=0.005..0.018 rows=150 loops=1)
+        Buffers: shared hit=2
+  ->  Hash  (cost=8.29..8.29 rows=1 width=43) (actual time=0.042..0.043 rows=1 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=3
+        ->  Index Scan using uq_projects_rera_id on projects p  (cost=0.28..8.29 rows=1 width=43) (actual time=0.031..0.031 rows=1 loops=1)
+              Index Cond: ((rera_id)::text = 'TS-RERA-PR-11726342'::text)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=243
+Planning Time: 0.982 ms
+Execution Time: 0.152 ms
+=== R10 run 4 ===
+Hash Join  (cost=8.31..12.21 rows=1 width=65) (actual time=0.058..0.076 rows=1 loops=1)
+  Hash Cond: (b.builder_id = p.builder_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on builders b  (cost=0.00..3.50 rows=150 width=26) (actual time=0.004..0.014 rows=150 loops=1)
+        Buffers: shared hit=2
+  ->  Hash  (cost=8.29..8.29 rows=1 width=43) (actual time=0.033..0.033 rows=1 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=3
+        ->  Index Scan using uq_projects_rera_id on projects p  (cost=0.28..8.29 rows=1 width=43) (actual time=0.023..0.024 rows=1 loops=1)
+              Index Cond: ((rera_id)::text = 'TS-RERA-PR-11726342'::text)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=243
+Planning Time: 0.518 ms
+Execution Time: 0.117 ms
+=== R10 run 5 ===
+Hash Join  (cost=8.31..12.21 rows=1 width=65) (actual time=0.044..0.059 rows=1 loops=1)
+  Hash Cond: (b.builder_id = p.builder_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on builders b  (cost=0.00..3.50 rows=150 width=26) (actual time=0.003..0.010 rows=150 loops=1)
+        Buffers: shared hit=2
+  ->  Hash  (cost=8.29..8.29 rows=1 width=43) (actual time=0.026..0.026 rows=1 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=3
+        ->  Index Scan using uq_projects_rera_id on projects p  (cost=0.28..8.29 rows=1 width=43) (actual time=0.018..0.019 rows=1 loops=1)
+              Index Cond: ((rera_id)::text = 'TS-RERA-PR-11726342'::text)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=243
+Planning Time: 0.525 ms
+Execution Time: 0.093 ms

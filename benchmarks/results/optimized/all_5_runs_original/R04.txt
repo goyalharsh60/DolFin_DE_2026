@@ -1,0 +1,120 @@
+=== R04 run 1 ===
+GroupAggregate  (cost=41.70..46.38 rows=144 width=48) (actual time=0.212..0.243 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=7 read=5
+  ->  Sort  (cost=41.70..42.06 rows=144 width=18) (actual time=0.195..0.201 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=7 read=5
+        ->  Nested Loop  (cost=0.42..36.54 rows=144 width=18) (actual time=0.067..0.163 rows=143 loops=1)
+              Buffers: shared hit=4 read=5
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=2) (actual time=0.006..0.010 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.42..32.49 rows=144 width=20) (actual time=0.053..0.123 rows=143 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND (listing_type = 'SALE'::text) AND (property_type = 'APARTMENT'::text))
+                    Filter: ((posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone) AND (posted_at < '2027-01-01 00:00:00+00'::timestamp with time zone))
+                    Rows Removed by Filter: 276
+                    Heap Fetches: 0
+                    Buffers: shared hit=3 read=5
+Planning:
+  Buffers: shared hit=434 read=6
+Planning Time: 0.837 ms
+Execution Time: 0.304 ms
+=== R04 run 2 ===
+GroupAggregate  (cost=41.70..46.38 rows=144 width=48) (actual time=0.227..0.267 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=12
+  ->  Sort  (cost=41.70..42.06 rows=144 width=18) (actual time=0.202..0.209 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=12
+        ->  Nested Loop  (cost=0.42..36.54 rows=144 width=18) (actual time=0.039..0.154 rows=143 loops=1)
+              Buffers: shared hit=9
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=2) (actual time=0.009..0.014 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.42..32.49 rows=144 width=20) (actual time=0.021..0.102 rows=143 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND (listing_type = 'SALE'::text) AND (property_type = 'APARTMENT'::text))
+                    Filter: ((posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone) AND (posted_at < '2027-01-01 00:00:00+00'::timestamp with time zone))
+                    Rows Removed by Filter: 276
+                    Heap Fetches: 0
+                    Buffers: shared hit=8
+Planning:
+  Buffers: shared hit=440
+Planning Time: 1.188 ms
+Execution Time: 0.398 ms
+=== R04 run 3 ===
+GroupAggregate  (cost=41.70..46.38 rows=144 width=48) (actual time=0.241..0.288 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=12
+  ->  Sort  (cost=41.70..42.06 rows=144 width=18) (actual time=0.215..0.227 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=12
+        ->  Nested Loop  (cost=0.42..36.54 rows=144 width=18) (actual time=0.046..0.163 rows=143 loops=1)
+              Buffers: shared hit=9
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=2) (actual time=0.009..0.016 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.42..32.49 rows=144 width=20) (actual time=0.026..0.108 rows=143 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND (listing_type = 'SALE'::text) AND (property_type = 'APARTMENT'::text))
+                    Filter: ((posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone) AND (posted_at < '2027-01-01 00:00:00+00'::timestamp with time zone))
+                    Rows Removed by Filter: 276
+                    Heap Fetches: 0
+                    Buffers: shared hit=8
+Planning:
+  Buffers: shared hit=440
+Planning Time: 1.174 ms
+Execution Time: 0.377 ms
+=== R04 run 4 ===
+GroupAggregate  (cost=41.70..46.38 rows=144 width=48) (actual time=0.162..0.193 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=12
+  ->  Sort  (cost=41.70..42.06 rows=144 width=18) (actual time=0.144..0.149 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=12
+        ->  Nested Loop  (cost=0.42..36.54 rows=144 width=18) (actual time=0.029..0.113 rows=143 loops=1)
+              Buffers: shared hit=9
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=2) (actual time=0.006..0.010 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.42..32.49 rows=144 width=20) (actual time=0.016..0.074 rows=143 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND (listing_type = 'SALE'::text) AND (property_type = 'APARTMENT'::text))
+                    Filter: ((posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone) AND (posted_at < '2027-01-01 00:00:00+00'::timestamp with time zone))
+                    Rows Removed by Filter: 276
+                    Heap Fetches: 0
+                    Buffers: shared hit=8
+Planning:
+  Buffers: shared hit=440
+Planning Time: 0.784 ms
+Execution Time: 0.254 ms
+=== R04 run 5 ===
+GroupAggregate  (cost=41.70..46.38 rows=144 width=48) (actual time=0.280..0.323 rows=6 loops=1)
+  Group Key: (date_trunc('month'::text, p.posted_at))
+  Buffers: shared hit=12
+  ->  Sort  (cost=41.70..42.06 rows=144 width=18) (actual time=0.255..0.262 rows=143 loops=1)
+        Sort Key: (date_trunc('month'::text, p.posted_at))
+        Sort Method: quicksort  Memory: 31kB
+        Buffers: shared hit=12
+        ->  Nested Loop  (cost=0.42..36.54 rows=144 width=18) (actual time=0.047..0.207 rows=143 loops=1)
+              Buffers: shared hit=9
+              ->  Seq Scan on localities l  (cost=0.00..2.25 rows=1 width=2) (actual time=0.009..0.016 rows=1 loops=1)
+                    Filter: ((locality_name)::text = 'Whitefield'::text)
+                    Rows Removed by Filter: 99
+                    Buffers: shared hit=1
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.42..32.49 rows=144 width=20) (actual time=0.028..0.149 rows=143 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND (listing_type = 'SALE'::text) AND (property_type = 'APARTMENT'::text))
+                    Filter: ((posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone) AND (posted_at < '2027-01-01 00:00:00+00'::timestamp with time zone))
+                    Rows Removed by Filter: 276
+                    Heap Fetches: 0
+                    Buffers: shared hit=8
+Planning:
+  Buffers: shared hit=440
+Planning Time: 1.091 ms
+Execution Time: 0.410 ms

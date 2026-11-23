@@ -1,0 +1,45 @@
+=== W04 run 1 ===
+Update on properties  (cost=794.34..3655.82 rows=0 width=0) (actual time=314.392..314.393 rows=0 loops=1)
+  Buffers: shared hit=289096 read=1949 dirtied=4327 written=2077
+  ->  Bitmap Heap Scan on properties  (cost=794.34..3655.82 rows=28526 width=44) (actual time=1.442..14.255 rows=14440 loops=1)
+        Recheck Cond: ((status)::text = 'ACTIVE'::text)
+        Filter: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+        Rows Removed by Filter: 22379
+        Heap Blocks: exact=2220
+        Buffers: shared hit=2370
+        ->  Bitmap Index Scan on idx_prop_dup_check  (cost=0.00..787.20 rows=36599 width=0) (actual time=1.205..1.205 rows=36825 loops=1)
+              Buffers: shared hit=150
+Planning:
+  Buffers: shared hit=276
+Planning Time: 0.503 ms
+Execution Time: 314.438 ms
+=== W04 run 2 ===
+Update on properties  (cost=795.19..3998.09 rows=0 width=0) (actual time=351.471..351.472 rows=0 loops=1)
+  Buffers: shared hit=305443 read=59 dirtied=930 written=863
+  ->  Bitmap Heap Scan on properties  (cost=795.19..3998.09 rows=31930 width=44) (actual time=1.967..21.376 rows=14440 loops=1)
+        Recheck Cond: ((status)::text = 'ACTIVE'::text)
+        Filter: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+        Rows Removed by Filter: 22379
+        Heap Blocks: exact=2220
+        Buffers: shared hit=2370
+        ->  Bitmap Index Scan on idx_prop_dup_check  (cost=0.00..787.20 rows=40966 width=0) (actual time=1.693..1.694 rows=36825 loops=1)
+              Buffers: shared hit=150
+Planning:
+  Buffers: shared hit=276
+Planning Time: 0.608 ms
+Execution Time: 351.529 ms
+=== W04 run 3 ===
+Update on properties  (cost=796.04..4341.65 rows=0 width=0) (actual time=238.866..238.867 rows=0 loops=1)
+  Buffers: shared hit=316707 read=17 dirtied=451 written=433
+  ->  Bitmap Heap Scan on properties  (cost=796.04..4341.65 rows=35346 width=44) (actual time=1.504..15.685 rows=14440 loops=1)
+        Recheck Cond: ((status)::text = 'ACTIVE'::text)
+        Filter: (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval))
+        Rows Removed by Filter: 22379
+        Heap Blocks: exact=2220
+        Buffers: shared hit=2370
+        ->  Bitmap Index Scan on idx_prop_dup_check  (cost=0.00..787.20 rows=45349 width=0) (actual time=1.276..1.276 rows=36825 loops=1)
+              Buffers: shared hit=150
+Planning:
+  Buffers: shared hit=276
+Planning Time: 0.522 ms
+Execution Time: 238.912 ms

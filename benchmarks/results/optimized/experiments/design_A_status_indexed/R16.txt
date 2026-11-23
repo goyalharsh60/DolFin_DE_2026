@@ -1,0 +1,45 @@
+=== R16 run 1 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.486..0.489 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.485..0.486 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.015..0.440 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.324 ms
+Execution Time: 0.510 ms
+=== R16 run 2 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.886..0.889 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.884..0.886 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.304..0.835 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.323 ms
+Execution Time: 0.909 ms
+=== R16 run 3 ===
+Limit  (cost=32.51..32.59 rows=30 width=37) (actual time=0.501..0.504 rows=30 loops=1)
+  Buffers: shared hit=18
+  ->  Sort  (cost=32.51..32.72 rows=85 width=37) (actual time=0.500..0.501 rows=30 loops=1)
+        Sort Key: project_name
+        Sort Method: top-N heapsort  Memory: 28kB
+        Buffers: shared hit=18
+        ->  Seq Scan on projects  (cost=0.00..30.00 rows=85 width=37) (actual time=0.016..0.450 rows=80 loops=1)
+              Filter: ((project_name)::text ~~* '%greens%'::text)
+              Rows Removed by Filter: 1120
+              Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.354 ms
+Execution Time: 0.526 ms
