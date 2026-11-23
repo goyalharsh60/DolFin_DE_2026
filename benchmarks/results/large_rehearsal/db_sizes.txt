@@ -1,0 +1,35 @@
+-- sizes of dolfin_large after sql/05_indexes.sql
+SET
+ table_name  |       index_name        | index_size | table_size 
+-------------+-------------------------+------------+------------
+ enquiries   | idx_enq_created         | 60 MB      | 135 MB
+ enquiries   | idx_enq_property_user   | 60 MB      | 135 MB
+ properties  | idx_prop_lister         | 72 MB      | 439 MB
+ properties  | idx_prop_map            | 119 MB     | 439 MB
+ properties  | idx_prop_posted         | 116 MB     | 439 MB
+ properties  | idx_prop_project        | 93 MB      | 439 MB
+ properties  | idx_prop_search         | 197 MB     | 439 MB
+ site_visits | idx_visit_property_user | 27 MB      | 46 MB
+(8 rows)
+
+ database_size 
+---------------
+ 1779 MB
+(1 row)
+
+      relname      |   table    | all_indexes 
+-------------------+------------+-------------
+ properties        | 439 MB     | 649 MB
+ enquiries         | 135 MB     | 163 MB
+ users             | 70 MB      | 88 MB
+ shortlists        | 59 MB      | 30 MB
+ site_visits       | 46 MB      | 42 MB
+ price_changes     | 27 MB      | 10 MB
+ project_amenities | 4824 kB    | 2992 kB
+ projects          | 2344 kB    | 1984 kB
+ builders          | 16 kB      | 32 kB
+ amenities         | 8192 bytes | 32 kB
+ localities        | 8192 bytes | 32 kB
+ cities            | 8192 bytes | 32 kB
+(12 rows)
+

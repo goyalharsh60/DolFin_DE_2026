@@ -1,0 +1,78 @@
+=== R08 run 1 ===
+Gather Merge  (cost=32600.95..32865.33 rows=2266 width=48) (actual time=60.678..68.099 rows=11140 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=47085 read=8936 written=4567
+  ->  Sort  (cost=31600.92..31603.76 rows=1133 width=48) (actual time=56.646..56.837 rows=3713 loops=3)
+        Sort Key: (round(('100'::numeric * ('1'::numeric - (c.new_price / c.old_price))), 1)) DESC
+        Sort Method: quicksort  Memory: 248kB
+        Buffers: shared hit=47085 read=8936 written=4567
+        Worker 0:  Sort Method: quicksort  Memory: 437kB
+        Worker 1:  Sort Method: quicksort  Memory: 265kB
+        ->  Nested Loop  (cost=0.43..31543.45 rows=1133 width=48) (actual time=0.825..55.343 rows=3713 loops=3)
+              Buffers: shared hit=47071 read=8936 written=4567
+              ->  Parallel Seq Scan on price_changes c  (cost=0.00..7349.17 rows=3694 width=16) (actual time=0.760..20.940 rows=4380 loops=3)
+                    Filter: ((changed_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (changed_at < '2026-07-01 00:00:00+00'::timestamp with time zone) AND (new_price <= (old_price * 0.9)))
+                    Rows Removed by Filter: 151787
+                    Buffers: shared read=3445 written=1647
+              ->  Index Scan using properties_pkey on properties p  (cost=0.43..6.55 rows=1 width=4) (actual time=0.007..0.007 rows=1 loops=13140)
+                    Index Cond: (property_id = c.property_id)
+                    Filter: ((status)::text = 'ACTIVE'::text)
+                    Rows Removed by Filter: 0
+                    Buffers: shared hit=47071 read=5491 written=2920
+Planning:
+  Buffers: shared hit=389 read=1
+Planning Time: 0.699 ms
+Execution Time: 68.592 ms
+=== R08 run 2 ===
+Gather Merge  (cost=32600.95..32865.33 rows=2266 width=48) (actual time=40.331..46.762 rows=11140 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=56021
+  ->  Sort  (cost=31600.92..31603.76 rows=1133 width=48) (actual time=35.241..35.558 rows=3713 loops=3)
+        Sort Key: (round(('100'::numeric * ('1'::numeric - (c.new_price / c.old_price))), 1)) DESC
+        Sort Method: quicksort  Memory: 266kB
+        Buffers: shared hit=56021
+        Worker 0:  Sort Method: quicksort  Memory: 141kB
+        Worker 1:  Sort Method: quicksort  Memory: 495kB
+        ->  Nested Loop  (cost=0.43..31543.45 rows=1133 width=48) (actual time=0.550..33.983 rows=3713 loops=3)
+              Buffers: shared hit=56007
+              ->  Parallel Seq Scan on price_changes c  (cost=0.00..7349.17 rows=3694 width=16) (actual time=0.518..17.652 rows=4380 loops=3)
+                    Filter: ((changed_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (changed_at < '2026-07-01 00:00:00+00'::timestamp with time zone) AND (new_price <= (old_price * 0.9)))
+                    Rows Removed by Filter: 151787
+                    Buffers: shared hit=3445
+              ->  Index Scan using properties_pkey on properties p  (cost=0.43..6.55 rows=1 width=4) (actual time=0.003..0.003 rows=1 loops=13140)
+                    Index Cond: (property_id = c.property_id)
+                    Filter: ((status)::text = 'ACTIVE'::text)
+                    Rows Removed by Filter: 0
+                    Buffers: shared hit=52562
+Planning:
+  Buffers: shared hit=390
+Planning Time: 0.845 ms
+Execution Time: 47.288 ms
+=== R08 run 3 ===
+Gather Merge  (cost=32600.95..32865.33 rows=2266 width=48) (actual time=34.100..40.030 rows=11140 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=56021
+  ->  Sort  (cost=31600.92..31603.76 rows=1133 width=48) (actual time=29.459..29.733 rows=3713 loops=3)
+        Sort Key: (round(('100'::numeric * ('1'::numeric - (c.new_price / c.old_price))), 1)) DESC
+        Sort Method: quicksort  Memory: 239kB
+        Buffers: shared hit=56021
+        Worker 0:  Sort Method: quicksort  Memory: 215kB
+        Worker 1:  Sort Method: quicksort  Memory: 496kB
+        ->  Nested Loop  (cost=0.43..31543.45 rows=1133 width=48) (actual time=0.499..28.226 rows=3713 loops=3)
+              Buffers: shared hit=56007
+              ->  Parallel Seq Scan on price_changes c  (cost=0.00..7349.17 rows=3694 width=16) (actual time=0.475..12.045 rows=4380 loops=3)
+                    Filter: ((changed_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (changed_at < '2026-07-01 00:00:00+00'::timestamp with time zone) AND (new_price <= (old_price * 0.9)))
+                    Rows Removed by Filter: 151787
+                    Buffers: shared hit=3445
+              ->  Index Scan using properties_pkey on properties p  (cost=0.43..6.55 rows=1 width=4) (actual time=0.003..0.003 rows=1 loops=13140)
+                    Index Cond: (property_id = c.property_id)
+                    Filter: ((status)::text = 'ACTIVE'::text)
+                    Rows Removed by Filter: 0
+                    Buffers: shared hit=52562
+Planning:
+  Buffers: shared hit=390
+Planning Time: 0.663 ms
+Execution Time: 40.497 ms

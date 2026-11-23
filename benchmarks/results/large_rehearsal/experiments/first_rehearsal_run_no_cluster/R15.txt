@@ -1,0 +1,63 @@
+=== R15 run 1 ===
+Sort  (cost=20136.35..20136.38 rows=10 width=105) (actual time=86.287..86.289 rows=10 loops=1)
+  Sort Key: (round((('1200'::numeric * avg((p.price / (p.carpet_area_sqft)::numeric)) FILTER (WHERE ((p.listing_type)::text = 'RENT'::text))) / avg((p.price / (p.carpet_area_sqft)::numeric)) FILTER (WHERE ((p.listing_type)::text = 'SALE'::text))), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=17361 read=2497
+  ->  GroupAggregate  (cost=0.70..20136.19 rows=10 width=105) (actual time=8.708..86.239 rows=10 loops=1)
+        Group Key: l.locality_name
+        Buffers: shared hit=17358 read=2497
+        ->  Nested Loop  (cost=0.70..15737.07 rows=195503 width=24) (actual time=0.061..48.895 rows=198520 loops=1)
+              Buffers: shared hit=17358 read=2497
+              ->  Index Scan using uq_localities_city_name on localities l  (cost=0.14..8.32 rows=10 width=11) (actual time=0.020..0.044 rows=10 loops=1)
+                    Index Cond: (city_id = 1)
+                    Buffers: shared hit=3 read=2
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.56..1377.38 rows=19550 width=17) (actual time=0.017..3.494 rows=19852 loops=10)
+                    Index Cond: ((locality_id = l.locality_id) AND (property_type = 'APARTMENT'::text))
+                    Heap Fetches: 0
+                    Buffers: shared hit=17355 read=2495
+Planning:
+  Buffers: shared hit=405 read=13
+Planning Time: 0.780 ms
+Execution Time: 86.346 ms
+=== R15 run 2 ===
+Sort  (cost=20136.35..20136.38 rows=10 width=105) (actual time=78.322..78.324 rows=10 loops=1)
+  Sort Key: (round((('1200'::numeric * avg((p.price / (p.carpet_area_sqft)::numeric)) FILTER (WHERE ((p.listing_type)::text = 'RENT'::text))) / avg((p.price / (p.carpet_area_sqft)::numeric)) FILTER (WHERE ((p.listing_type)::text = 'SALE'::text))), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=19858
+  ->  GroupAggregate  (cost=0.70..20136.19 rows=10 width=105) (actual time=7.863..78.286 rows=10 loops=1)
+        Group Key: l.locality_name
+        Buffers: shared hit=19855
+        ->  Nested Loop  (cost=0.70..15737.07 rows=195503 width=24) (actual time=0.039..41.051 rows=198520 loops=1)
+              Buffers: shared hit=19855
+              ->  Index Scan using uq_localities_city_name on localities l  (cost=0.14..8.32 rows=10 width=11) (actual time=0.011..0.026 rows=10 loops=1)
+                    Index Cond: (city_id = 1)
+                    Buffers: shared hit=5
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.56..1377.38 rows=19550 width=17) (actual time=0.010..2.698 rows=19852 loops=10)
+                    Index Cond: ((locality_id = l.locality_id) AND (property_type = 'APARTMENT'::text))
+                    Heap Fetches: 0
+                    Buffers: shared hit=19850
+Planning:
+  Buffers: shared hit=418
+Planning Time: 0.659 ms
+Execution Time: 78.381 ms
+=== R15 run 3 ===
+Sort  (cost=20136.35..20136.38 rows=10 width=105) (actual time=102.728..102.731 rows=10 loops=1)
+  Sort Key: (round((('1200'::numeric * avg((p.price / (p.carpet_area_sqft)::numeric)) FILTER (WHERE ((p.listing_type)::text = 'RENT'::text))) / avg((p.price / (p.carpet_area_sqft)::numeric)) FILTER (WHERE ((p.listing_type)::text = 'SALE'::text))), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=19858
+  ->  GroupAggregate  (cost=0.70..20136.19 rows=10 width=105) (actual time=10.952..102.665 rows=10 loops=1)
+        Group Key: l.locality_name
+        Buffers: shared hit=19855
+        ->  Nested Loop  (cost=0.70..15737.07 rows=195503 width=24) (actual time=0.059..53.773 rows=198520 loops=1)
+              Buffers: shared hit=19855
+              ->  Index Scan using uq_localities_city_name on localities l  (cost=0.14..8.32 rows=10 width=11) (actual time=0.015..0.041 rows=10 loops=1)
+                    Index Cond: (city_id = 1)
+                    Buffers: shared hit=5
+              ->  Index Only Scan using idx_prop_search on properties p  (cost=0.56..1377.38 rows=19550 width=17) (actual time=0.017..3.721 rows=19852 loops=10)
+                    Index Cond: ((locality_id = l.locality_id) AND (property_type = 'APARTMENT'::text))
+                    Heap Fetches: 0
+                    Buffers: shared hit=19850
+Planning:
+  Buffers: shared hit=418
+Planning Time: 1.177 ms
+Execution Time: 102.804 ms

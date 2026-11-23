@@ -1,0 +1,69 @@
+=== R18 run 1 ===
+Sort  (cost=156681.04..156876.00 rows=77985 width=22) (actual time=871.057..871.108 rows=1200 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 105kB
+  Buffers: shared hit=579 read=55095, temp read=5130 written=7772
+  ->  HashAggregate  (cost=140228.16..150344.40 rows=77985 width=22) (actual time=601.895..870.604 rows=1200 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Planned Partitions: 4  Batches: 21  Memory Usage: 8249kB  Disk Usage: 28008kB
+        Rows Removed by Filter: 733980
+        Buffers: shared hit=576 read=55095, temp read=5130 written=7772
+        ->  Seq Scan on properties  (cost=0.00..85685.65 rows=736439 width=14) (actual time=9.741..351.848 rows=736380 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 1664820
+              Buffers: shared hit=576 read=55095
+Planning:
+  Buffers: shared hit=279
+Planning Time: 0.731 ms
+JIT:
+  Functions: 10
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 1.072 ms, Inlining 0.000 ms, Optimization 0.828 ms, Emission 12.409 ms, Total 14.308 ms
+Execution Time: 891.775 ms
+=== R18 run 2 ===
+Sort  (cost=156681.04..156876.00 rows=77985 width=22) (actual time=886.974..887.042 rows=1200 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 105kB
+  Buffers: shared hit=611 read=55063, temp read=5130 written=7772
+  ->  HashAggregate  (cost=140228.16..150344.40 rows=77985 width=22) (actual time=608.157..886.560 rows=1200 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Planned Partitions: 4  Batches: 21  Memory Usage: 8249kB  Disk Usage: 28008kB
+        Rows Removed by Filter: 733980
+        Buffers: shared hit=608 read=55063, temp read=5130 written=7772
+        ->  Seq Scan on properties  (cost=0.00..85685.65 rows=736439 width=14) (actual time=6.639..354.100 rows=736380 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 1664820
+              Buffers: shared hit=608 read=55063
+Planning:
+  Buffers: shared hit=279
+Planning Time: 0.790 ms
+JIT:
+  Functions: 10
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.882 ms, Inlining 0.000 ms, Optimization 0.745 ms, Emission 8.640 ms, Total 10.267 ms
+Execution Time: 903.833 ms
+=== R18 run 3 ===
+Sort  (cost=156681.04..156876.00 rows=77985 width=22) (actual time=980.679..980.731 rows=1200 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 105kB
+  Buffers: shared hit=643 read=55031, temp read=5130 written=7772
+  ->  HashAggregate  (cost=140228.16..150344.40 rows=77985 width=22) (actual time=677.977..980.217 rows=1200 loops=1)
+        Group Key: listed_by, locality_id, carpet_area_sqft, floor_no, bhk
+        Filter: (count(*) > 1)
+        Planned Partitions: 4  Batches: 21  Memory Usage: 8249kB  Disk Usage: 28008kB
+        Rows Removed by Filter: 733980
+        Buffers: shared hit=640 read=55031, temp read=5130 written=7772
+        ->  Seq Scan on properties  (cost=0.00..85685.65 rows=736439 width=14) (actual time=10.376..394.977 rows=736380 loops=1)
+              Filter: ((status)::text = 'ACTIVE'::text)
+              Rows Removed by Filter: 1664820
+              Buffers: shared hit=640 read=55031
+Planning:
+  Buffers: shared hit=279
+Planning Time: 0.667 ms
+JIT:
+  Functions: 10
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 1.113 ms, Inlining 0.000 ms, Optimization 0.890 ms, Emission 13.177 ms, Total 15.180 ms
+Execution Time: 1003.412 ms

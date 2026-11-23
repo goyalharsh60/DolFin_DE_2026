@@ -1,0 +1,93 @@
+=== R17 run 1 ===
+Gather Merge  (cost=133559.19..166921.18 rows=285940 width=16) (actual time=530.770..562.326 rows=178800 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=12821 read=60811, temp read=7778 written=7846
+  ->  Sort  (cost=132559.16..132916.59 rows=142970 width=16) (actual time=508.324..514.699 rows=59600 loops=3)
+        Sort Key: p.posted_at
+        Sort Method: quicksort  Memory: 1636kB
+        Buffers: shared hit=12821 read=60811, temp read=7778 written=7846
+        Worker 0:  Sort Method: quicksort  Memory: 3285kB
+        Worker 1:  Sort Method: external merge  Disk: 2856kB
+        ->  Parallel Hash Right Anti Join  (cost=78133.48..117870.60 rows=142970 width=16) (actual time=431.523..491.607 rows=59600 loops=3)
+              Hash Cond: (e.property_id = p.property_id)
+              Buffers: shared hit=12747 read=60811, temp read=7421 written=7488
+              ->  Parallel Seq Scan on enquiries e  (cost=0.00..25675.33 rows=833333 width=4) (actual time=0.056..73.487 rows=666667 loops=3)
+                    Buffers: shared read=17342
+              ->  Parallel Hash  (cost=73670.16..73670.16 rows=256745 width=16) (actual time=227.904..227.905 rows=133373 loops=3)
+                    Buckets: 262144  Batches: 8  Memory Usage: 4448kB
+                    Buffers: shared hit=12689 read=43469, temp written=1584
+                    ->  Parallel Seq Scan on properties p  (cost=0.00..73670.16 rows=256745 width=16) (actual time=11.171..202.835 rows=133373 loops=3)
+                          Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '90 days'::interval)))
+                          Rows Removed by Filter: 667027
+                          Buffers: shared hit=12689 read=43469
+Planning:
+  Buffers: shared hit=457 read=14
+Planning Time: 0.858 ms
+JIT:
+  Functions: 36
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 1.726 ms, Inlining 0.000 ms, Optimization 1.371 ms, Emission 32.259 ms, Total 35.355 ms
+Execution Time: 581.263 ms
+=== R17 run 2 ===
+Gather Merge  (cost=133559.19..166921.18 rows=285940 width=16) (actual time=600.828..655.997 rows=178800 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=13013 read=60619, temp read=7706 written=7763
+  ->  Sort  (cost=132559.16..132916.59 rows=142970 width=16) (actual time=578.705..587.092 rows=59600 loops=3)
+        Sort Key: p.posted_at
+        Sort Method: quicksort  Memory: 3285kB
+        Buffers: shared hit=13013 read=60619, temp read=7706 written=7763
+        Worker 0:  Sort Method: external merge  Disk: 2288kB
+        Worker 1:  Sort Method: quicksort  Memory: 3269kB
+        ->  Parallel Hash Right Anti Join  (cost=78133.48..117870.60 rows=142970 width=16) (actual time=480.282..563.530 rows=59600 loops=3)
+              Hash Cond: (e.property_id = p.property_id)
+              Buffers: shared hit=12939 read=60619, temp read=7420 written=7476
+              ->  Parallel Seq Scan on enquiries e  (cost=0.00..25675.33 rows=833333 width=4) (actual time=0.045..68.549 rows=666667 loops=3)
+                    Buffers: shared hit=96 read=17246
+              ->  Parallel Hash  (cost=73670.16..73670.16 rows=256745 width=16) (actual time=258.192..258.194 rows=133373 loops=3)
+                    Buckets: 262144  Batches: 8  Memory Usage: 4448kB
+                    Buffers: shared hit=12785 read=43373, temp written=1580
+                    ->  Parallel Seq Scan on properties p  (cost=0.00..73670.16 rows=256745 width=16) (actual time=9.264..225.819 rows=133373 loops=3)
+                          Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '90 days'::interval)))
+                          Rows Removed by Filter: 667027
+                          Buffers: shared hit=12785 read=43373
+Planning:
+  Buffers: shared hit=471
+Planning Time: 0.776 ms
+JIT:
+  Functions: 36
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 1.729 ms, Inlining 0.000 ms, Optimization 1.421 ms, Emission 26.520 ms, Total 29.670 ms
+Execution Time: 674.633 ms
+=== R17 run 3 ===
+Gather Merge  (cost=133559.19..166921.18 rows=285940 width=16) (actual time=610.079..666.345 rows=178800 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=13205 read=60427, temp read=7711 written=7783
+  ->  Sort  (cost=132559.16..132916.59 rows=142970 width=16) (actual time=584.907..592.815 rows=59600 loops=3)
+        Sort Key: p.posted_at
+        Sort Method: quicksort  Memory: 3277kB
+        Buffers: shared hit=13205 read=60427, temp read=7711 written=7783
+        Worker 0:  Sort Method: quicksort  Memory: 3275kB
+        Worker 1:  Sort Method: external merge  Disk: 2288kB
+        ->  Parallel Hash Right Anti Join  (cost=78133.48..117870.60 rows=142970 width=16) (actual time=477.507..566.494 rows=59600 loops=3)
+              Hash Cond: (e.property_id = p.property_id)
+              Buffers: shared hit=13131 read=60427, temp read=7425 written=7496
+              ->  Parallel Seq Scan on enquiries e  (cost=0.00..25675.33 rows=833333 width=4) (actual time=0.049..80.334 rows=666667 loops=3)
+                    Buffers: shared hit=192 read=17150
+              ->  Parallel Hash  (cost=73670.16..73670.16 rows=256745 width=16) (actual time=258.389..258.391 rows=133373 loops=3)
+                    Buckets: 262144  Batches: 8  Memory Usage: 4416kB
+                    Buffers: shared hit=12881 read=43277, temp written=1592
+                    ->  Parallel Seq Scan on properties p  (cost=0.00..73670.16 rows=256745 width=16) (actual time=14.279..222.576 rows=133373 loops=3)
+                          Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '90 days'::interval)))
+                          Rows Removed by Filter: 667027
+                          Buffers: shared hit=12881 read=43277
+Planning:
+  Buffers: shared hit=471
+Planning Time: 1.065 ms
+JIT:
+  Functions: 36
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 5.971 ms, Inlining 0.000 ms, Optimization 1.693 ms, Emission 41.300 ms, Total 48.963 ms
+Execution Time: 691.445 ms

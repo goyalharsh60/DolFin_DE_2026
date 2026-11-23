@@ -1,0 +1,123 @@
+=== R14 run 1 ===
+Limit  (cost=88333.27..88333.32 rows=20 width=24) (actual time=277.356..278.168 rows=20 loops=1)
+  Buffers: shared hit=103 read=64675
+  ->  Sort  (cost=88333.27..88375.79 rows=17005 width=24) (actual time=277.354..278.164 rows=20 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=103 read=64675
+        ->  Finalize GroupAggregate  (cost=85880.32..87880.78 rows=17005 width=24) (actual time=258.836..275.555 rows=22900 loops=1)
+              Group Key: u.user_id
+              Buffers: shared hit=100 read=64675
+              ->  Gather Merge  (cost=85880.32..87639.88 rows=14170 width=24) (actual time=258.825..271.209 rows=29572 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=100 read=64675
+                    ->  Partial GroupAggregate  (cost=84880.29..85004.28 rows=7085 width=24) (actual time=253.669..256.764 rows=9857 loops=3)
+                          Group Key: u.user_id
+                          Buffers: shared hit=100 read=64675
+                          ->  Sort  (cost=84880.29..84898.01 rows=7085 width=16) (actual time=253.659..254.628 rows=11960 loops=3)
+                                Sort Key: u.user_id
+                                Sort Method: quicksort  Memory: 894kB
+                                Buffers: shared hit=100 read=64675
+                                Worker 0:  Sort Method: quicksort  Memory: 1040kB
+                                Worker 1:  Sort Method: quicksort  Memory: 535kB
+                                ->  Parallel Hash Join  (cost=13381.78..84427.19 rows=7085 width=16) (actual time=37.626..247.690 rows=11960 loops=3)
+                                      Hash Cond: (p.listed_by = u.user_id)
+                                      Buffers: shared hit=28 read=64675
+                                      ->  Parallel Seq Scan on properties p  (cost=0.00..70678.32 rows=139842 width=4) (actual time=4.272..194.670 rows=70293 loops=3)
+                                            Filter: (((status)::text = ANY ('{SOLD,RENTED}'::text[])) AND (posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone))
+                                            Rows Removed by Filter: 730107
+                                            Buffers: shared hit=6 read=55671
+                                      ->  Parallel Hash  (cost=13170.67..13170.67 rows=16889 width=16) (actual time=31.918..31.920 rows=13660 loops=3)
+                                            Buckets: 65536  Batches: 1  Memory Usage: 2624kB
+                                            Buffers: shared read=9004
+                                            ->  Parallel Seq Scan on users u  (cost=0.00..13170.67 rows=16889 width=16) (actual time=0.023..28.799 rows=13660 loops=3)
+                                                  Filter: ((user_type)::text = 'AGENT'::text)
+                                                  Rows Removed by Filter: 253007
+                                                  Buffers: shared read=9004
+Planning:
+  Buffers: shared hit=399 read=20
+Planning Time: 0.835 ms
+Execution Time: 278.257 ms
+=== R14 run 2 ===
+Limit  (cost=88333.27..88333.32 rows=20 width=24) (actual time=300.758..302.606 rows=20 loops=1)
+  Buffers: shared hit=295 read=64483
+  ->  Sort  (cost=88333.27..88375.79 rows=17005 width=24) (actual time=300.756..302.601 rows=20 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=295 read=64483
+        ->  Finalize GroupAggregate  (cost=85880.32..87880.78 rows=17005 width=24) (actual time=284.902..299.992 rows=22900 loops=1)
+              Group Key: u.user_id
+              Buffers: shared hit=292 read=64483
+              ->  Gather Merge  (cost=85880.32..87639.88 rows=14170 width=24) (actual time=284.890..295.520 rows=29567 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=292 read=64483
+                    ->  Partial GroupAggregate  (cost=84880.29..85004.28 rows=7085 width=24) (actual time=279.432..283.626 rows=9856 loops=3)
+                          Group Key: u.user_id
+                          Buffers: shared hit=292 read=64483
+                          ->  Sort  (cost=84880.29..84898.01 rows=7085 width=16) (actual time=279.422..280.539 rows=11960 loops=3)
+                                Sort Key: u.user_id
+                                Sort Method: quicksort  Memory: 988kB
+                                Buffers: shared hit=292 read=64483
+                                Worker 0:  Sort Method: quicksort  Memory: 814kB
+                                Worker 1:  Sort Method: quicksort  Memory: 859kB
+                                ->  Parallel Hash Join  (cost=13381.78..84427.19 rows=7085 width=16) (actual time=38.610..274.404 rows=11960 loops=3)
+                                      Hash Cond: (p.listed_by = u.user_id)
+                                      Buffers: shared hit=220 read=64483
+                                      ->  Parallel Seq Scan on properties p  (cost=0.00..70678.32 rows=139842 width=4) (actual time=4.260..207.577 rows=70293 loops=3)
+                                            Filter: (((status)::text = ANY ('{SOLD,RENTED}'::text[])) AND (posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone))
+                                            Rows Removed by Filter: 730107
+                                            Buffers: shared hit=102 read=55575
+                                      ->  Parallel Hash  (cost=13170.67..13170.67 rows=16889 width=16) (actual time=33.304..33.305 rows=13660 loops=3)
+                                            Buckets: 65536  Batches: 1  Memory Usage: 2624kB
+                                            Buffers: shared hit=96 read=8908
+                                            ->  Parallel Seq Scan on users u  (cost=0.00..13170.67 rows=16889 width=16) (actual time=0.024..28.741 rows=13660 loops=3)
+                                                  Filter: ((user_type)::text = 'AGENT'::text)
+                                                  Rows Removed by Filter: 253007
+                                                  Buffers: shared hit=96 read=8908
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.721 ms
+Execution Time: 302.692 ms
+=== R14 run 3 ===
+Limit  (cost=88333.27..88333.32 rows=20 width=24) (actual time=277.876..279.292 rows=20 loops=1)
+  Buffers: shared hit=487 read=64291
+  ->  Sort  (cost=88333.27..88375.79 rows=17005 width=24) (actual time=277.874..279.287 rows=20 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=487 read=64291
+        ->  Finalize GroupAggregate  (cost=85880.32..87880.78 rows=17005 width=24) (actual time=262.953..276.629 rows=22900 loops=1)
+              Group Key: u.user_id
+              Buffers: shared hit=484 read=64291
+              ->  Gather Merge  (cost=85880.32..87639.88 rows=14170 width=24) (actual time=262.943..272.111 rows=29629 loops=1)
+                    Workers Planned: 2
+                    Workers Launched: 2
+                    Buffers: shared hit=484 read=64291
+                    ->  Partial GroupAggregate  (cost=84880.29..85004.28 rows=7085 width=24) (actual time=257.503..260.554 rows=9876 loops=3)
+                          Group Key: u.user_id
+                          Buffers: shared hit=484 read=64291
+                          ->  Sort  (cost=84880.29..84898.01 rows=7085 width=16) (actual time=257.493..258.436 rows=11960 loops=3)
+                                Sort Key: u.user_id
+                                Sort Method: quicksort  Memory: 1009kB
+                                Buffers: shared hit=484 read=64291
+                                Worker 0:  Sort Method: quicksort  Memory: 763kB
+                                Worker 1:  Sort Method: quicksort  Memory: 888kB
+                                ->  Parallel Hash Join  (cost=13381.78..84427.19 rows=7085 width=16) (actual time=41.570..252.832 rows=11960 loops=3)
+                                      Hash Cond: (p.listed_by = u.user_id)
+                                      Buffers: shared hit=412 read=64291
+                                      ->  Parallel Seq Scan on properties p  (cost=0.00..70678.32 rows=139842 width=4) (actual time=4.257..193.289 rows=70293 loops=3)
+                                            Filter: (((status)::text = ANY ('{SOLD,RENTED}'::text[])) AND (posted_at >= '2026-01-01 00:00:00+00'::timestamp with time zone))
+                                            Rows Removed by Filter: 730107
+                                            Buffers: shared hit=198 read=55479
+                                      ->  Parallel Hash  (cost=13170.67..13170.67 rows=16889 width=16) (actual time=36.049..36.050 rows=13660 loops=3)
+                                            Buckets: 65536  Batches: 1  Memory Usage: 2592kB
+                                            Buffers: shared hit=192 read=8812
+                                            ->  Parallel Seq Scan on users u  (cost=0.00..13170.67 rows=16889 width=16) (actual time=0.027..31.410 rows=13660 loops=3)
+                                                  Filter: ((user_type)::text = 'AGENT'::text)
+                                                  Rows Removed by Filter: 253007
+                                                  Buffers: shared hit=192 read=8812
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.790 ms
+Execution Time: 279.415 ms

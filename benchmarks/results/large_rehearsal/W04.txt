@@ -1,0 +1,33 @@
+=== W04 run 1 ===
+Update on properties  (cost=0.00..97691.02 rows=0 width=0) (actual time=2431.796..2431.797 rows=0 loops=1)
+  Buffers: shared hit=1045884 read=67271 dirtied=55451 written=39192
+  ->  Seq Scan on properties  (cost=0.00..97691.02 rows=571824 width=44) (actual time=0.014..609.601 rows=288800 loops=1)
+        Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+        Rows Removed by Filter: 2112400
+        Buffers: shared hit=157 read=55513 written=30450
+Planning:
+  Buffers: shared hit=209
+Planning Time: 0.594 ms
+Execution Time: 2431.868 ms
+=== W04 run 2 ===
+Update on properties  (cost=0.00..97971.79 rows=0 width=0) (actual time=1824.232..1824.234 rows=0 loops=1)
+  Buffers: shared hit=1010701 read=65412 dirtied=53654 written=53212
+  ->  Seq Scan on properties  (cost=0.00..97971.79 rows=573467 width=44) (actual time=0.036..615.389 rows=288800 loops=1)
+        Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+        Rows Removed by Filter: 2112400
+        Buffers: shared hit=430 read=55400 dirtied=43296 written=42203
+Planning:
+  Buffers: shared hit=175 read=34 written=34
+Planning Time: 0.665 ms
+Execution Time: 1824.305 ms
+=== W04 run 3 ===
+Update on properties  (cost=0.00..98259.58 rows=0 width=0) (actual time=2120.462..2120.463 rows=0 loops=1)
+  Buffers: shared hit=1011812 read=65439 dirtied=53178 written=52503
+  ->  Seq Scan on properties  (cost=0.00..98259.58 rows=575152 width=44) (actual time=0.045..798.525 rows=288800 loops=1)
+        Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+        Rows Removed by Filter: 2112400
+        Buffers: shared hit=391 read=55603 dirtied=43335 written=41879
+Planning:
+  Buffers: shared hit=175 read=34 written=34
+Planning Time: 0.759 ms
+Execution Time: 2120.729 ms

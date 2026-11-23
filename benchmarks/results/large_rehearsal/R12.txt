@@ -1,0 +1,90 @@
+=== R12 run 1 ===
+Gather Merge  (cost=36017.90..43061.56 rows=60370 width=20) (actual time=232.353..245.198 rows=76860 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=111 read=23594, temp read=321 written=322
+  ->  Sort  (cost=35017.88..35093.34 rows=30185 width=20) (actual time=204.094..205.671 rows=25620 loops=3)
+        Sort Key: e.created_at
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=111 read=23594, temp read=321 written=322
+        Worker 0:  Sort Method: external merge  Disk: 2568kB
+        Worker 1:  Sort Method: quicksort  Memory: 25kB
+        ->  Parallel Hash Right Anti Join  (cost=21818.20..32771.88 rows=30185 width=20) (actual time=191.922..198.299 rows=25620 loops=3)
+              Hash Cond: ((v.property_id = e.property_id) AND (v.user_id = e.user_id))
+              Buffers: shared hit=95 read=23594
+              ->  Parallel Seq Scan on site_visits v  (cost=0.00..8758.67 rows=292667 width=8) (actual time=0.027..19.578 rows=234133 loops=3)
+                    Buffers: shared read=5832
+              ->  Parallel Hash  (cost=21085.30..21085.30 rows=48860 width=20) (actual time=90.808..90.810 rows=39520 loops=3)
+                    Buckets: 131072  Batches: 1  Memory Usage: 7552kB
+                    Buffers: shared hit=1 read=17762
+                    ->  Parallel Bitmap Heap Scan on enquiries e  (cost=3010.39..21085.30 rows=48860 width=20) (actual time=11.452..75.861 rows=39520 loops=3)
+                          Recheck Cond: ((created_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (created_at < '2026-06-24 00:00:00+00'::timestamp with time zone))
+                          Heap Blocks: exact=7772
+                          Buffers: shared hit=1 read=17762
+                          ->  Bitmap Index Scan on idx_enq_created  (cost=0.00..2981.08 rows=117265 width=0) (actual time=10.539..10.539 rows=118560 loops=1)
+                                Index Cond: ((created_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (created_at < '2026-06-24 00:00:00+00'::timestamp with time zone))
+                                Buffers: shared hit=1 read=456
+Planning:
+  Buffers: shared hit=254 read=25
+Planning Time: 1.023 ms
+Execution Time: 247.856 ms
+=== R12 run 2 ===
+Gather Merge  (cost=36017.90..43061.56 rows=60370 width=20) (actual time=216.298..228.847 rows=76860 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=111 read=23594, temp read=321 written=322
+  ->  Sort  (cost=35017.88..35093.34 rows=30185 width=20) (actual time=191.477..193.015 rows=25620 loops=3)
+        Sort Key: e.created_at
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=111 read=23594, temp read=321 written=322
+        Worker 0:  Sort Method: quicksort  Memory: 25kB
+        Worker 1:  Sort Method: external merge  Disk: 2568kB
+        ->  Parallel Hash Right Anti Join  (cost=21818.20..32771.88 rows=30185 width=20) (actual time=180.327..185.683 rows=25620 loops=3)
+              Hash Cond: ((v.property_id = e.property_id) AND (v.user_id = e.user_id))
+              Buffers: shared hit=95 read=23594
+              ->  Parallel Seq Scan on site_visits v  (cost=0.00..8758.67 rows=292667 width=8) (actual time=0.019..18.844 rows=234133 loops=3)
+                    Buffers: shared read=5832
+              ->  Parallel Hash  (cost=21085.30..21085.30 rows=48860 width=20) (actual time=82.486..82.488 rows=39520 loops=3)
+                    Buckets: 131072  Batches: 1  Memory Usage: 7584kB
+                    Buffers: shared hit=1 read=17762
+                    ->  Parallel Bitmap Heap Scan on enquiries e  (cost=3010.39..21085.30 rows=48860 width=20) (actual time=9.801..70.134 rows=39520 loops=3)
+                          Recheck Cond: ((created_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (created_at < '2026-06-24 00:00:00+00'::timestamp with time zone))
+                          Heap Blocks: exact=7466
+                          Buffers: shared hit=1 read=17762
+                          ->  Bitmap Index Scan on idx_enq_created  (cost=0.00..2981.08 rows=117265 width=0) (actual time=7.899..7.899 rows=118560 loops=1)
+                                Index Cond: ((created_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (created_at < '2026-06-24 00:00:00+00'::timestamp with time zone))
+                                Buffers: shared hit=1 read=456
+Planning:
+  Buffers: shared hit=260 read=19
+Planning Time: 0.686 ms
+Execution Time: 231.537 ms
+=== R12 run 3 ===
+Gather Merge  (cost=36017.90..43061.56 rows=60370 width=20) (actual time=230.734..242.515 rows=76860 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=111 read=23594, temp read=321 written=322
+  ->  Sort  (cost=35017.88..35093.34 rows=30185 width=20) (actual time=203.166..204.689 rows=25620 loops=3)
+        Sort Key: e.created_at
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=111 read=23594, temp read=321 written=322
+        Worker 0:  Sort Method: external merge  Disk: 2568kB
+        Worker 1:  Sort Method: quicksort  Memory: 25kB
+        ->  Parallel Hash Right Anti Join  (cost=21818.20..32771.88 rows=30185 width=20) (actual time=191.802..197.734 rows=25620 loops=3)
+              Hash Cond: ((v.property_id = e.property_id) AND (v.user_id = e.user_id))
+              Buffers: shared hit=95 read=23594
+              ->  Parallel Seq Scan on site_visits v  (cost=0.00..8758.67 rows=292667 width=8) (actual time=0.019..19.581 rows=234133 loops=3)
+                    Buffers: shared read=5832
+              ->  Parallel Hash  (cost=21085.30..21085.30 rows=48860 width=20) (actual time=91.524..91.526 rows=39520 loops=3)
+                    Buckets: 131072  Batches: 1  Memory Usage: 7584kB
+                    Buffers: shared hit=1 read=17762
+                    ->  Parallel Bitmap Heap Scan on enquiries e  (cost=3010.39..21085.30 rows=48860 width=20) (actual time=9.439..80.268 rows=39520 loops=3)
+                          Recheck Cond: ((created_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (created_at < '2026-06-24 00:00:00+00'::timestamp with time zone))
+                          Heap Blocks: exact=5971
+                          Buffers: shared hit=1 read=17762
+                          ->  Bitmap Index Scan on idx_enq_created  (cost=0.00..2981.08 rows=117265 width=0) (actual time=9.723..9.724 rows=118560 loops=1)
+                                Index Cond: ((created_at >= '2026-06-01 00:00:00+00'::timestamp with time zone) AND (created_at < '2026-06-24 00:00:00+00'::timestamp with time zone))
+                                Buffers: shared hit=1 read=456
+Planning:
+  Buffers: shared hit=260 read=19
+Planning Time: 0.581 ms
+Execution Time: 245.151 ms
