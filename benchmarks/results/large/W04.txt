@@ -1,0 +1,33 @@
+=== W04 run 1 ===
+Update on properties  (cost=0.00..97694.56 rows=0 width=0) (actual time=3314.203..3314.204 rows=0 loops=1)
+  Buffers: shared hit=1034217 read=80693 dirtied=68109 written=50922
+  ->  Seq Scan on properties  (cost=0.00..97694.56 rows=567936 width=44) (actual time=0.022..752.581 rows=287639 loops=1)
+        Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+        Rows Removed by Filter: 2113625
+        Buffers: shared hit=17 read=55654 dirtied=1 written=28983
+Planning:
+  Buffers: shared hit=209
+Planning Time: 0.413 ms
+Execution Time: 3314.263 ms
+=== W04 run 2 ===
+Update on properties  (cost=0.00..97991.13 rows=0 width=0) (actual time=2787.507..2787.508 rows=0 loops=1)
+  Buffers: shared hit=997965 read=80087 dirtied=67899 written=66661
+  ->  Seq Scan on properties  (cost=0.00..97991.13 rows=569660 width=44) (actual time=0.043..914.705 rows=287639 loops=1)
+        Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+        Rows Removed by Filter: 2113625
+        Buffers: shared hit=172 read=55668 dirtied=43304 written=42228
+Planning:
+  Buffers: shared hit=175 read=34 written=34
+Planning Time: 0.619 ms
+Execution Time: 2787.572 ms
+=== W04 run 3 ===
+Update on properties  (cost=0.00..98287.69 rows=0 width=0) (actual time=2450.056..2450.061 rows=0 loops=1)
+  Buffers: shared hit=999177 read=80227 dirtied=67890 written=66845
+  ->  Seq Scan on properties  (cost=0.00..98287.69 rows=571384 width=44) (actual time=0.037..800.963 rows=287639 loops=1)
+        Filter: (((status)::text = 'ACTIVE'::text) AND (posted_at < ('2026-06-30 18:30:00+00'::timestamp with time zone - '120 days'::interval)))
+        Rows Removed by Filter: 2113625
+        Buffers: shared hit=255 read=55754 dirtied=43350 written=42351
+Planning:
+  Buffers: shared hit=175 read=34 written=34
+Planning Time: 0.628 ms
+Execution Time: 2450.152 ms

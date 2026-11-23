@@ -1,0 +1,72 @@
+=== R01 run 1 ===
+Sort  (cost=5570.33..5571.07 rows=298 width=32) (actual time=13.568..13.595 rows=472 loops=1)
+  Sort Key: p.price
+  Sort Method: quicksort  Memory: 54kB
+  Buffers: shared hit=15 read=2166
+  ->  Nested Loop  (cost=742.48..5558.08 rows=298 width=32) (actual time=2.739..13.307 rows=472 loops=1)
+        Buffers: shared hit=12 read=2166
+        ->  Seq Scan on localities l  (cost=0.00..2.50 rows=1 width=2) (actual time=0.016..0.024 rows=1 loops=1)
+              Filter: (((locality_name)::text = 'Koramangala'::text) AND (city_id = 1))
+              Rows Removed by Filter: 99
+              Buffers: shared read=1
+        ->  Bitmap Heap Scan on properties p  (cost=742.48..5552.60 rows=298 width=34) (actual time=2.720..13.171 rows=472 loops=1)
+              Recheck Cond: ((locality_id = l.locality_id) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+              Filter: (((furnishing)::text = ANY ('{SEMI_FURNISHED,FULLY_FURNISHED}'::text[])) AND ((status)::text = 'ACTIVE'::text))
+              Rows Removed by Filter: 1602
+              Heap Blocks: exact=2037
+              Buffers: shared hit=12 read=2165
+              ->  Bitmap Index Scan on idx_prop_search  (cost=0.00..742.40 rows=1368 width=0) (actual time=2.160..2.160 rows=2074 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+                    Buffers: shared read=140
+Planning:
+  Buffers: shared hit=469 read=1
+Planning Time: 1.007 ms
+Execution Time: 13.702 ms
+=== R01 run 2 ===
+Sort  (cost=5570.33..5571.07 rows=298 width=32) (actual time=4.423..4.447 rows=472 loops=1)
+  Sort Key: p.price
+  Sort Method: quicksort  Memory: 54kB
+  Buffers: shared hit=2181
+  ->  Nested Loop  (cost=742.48..5558.08 rows=298 width=32) (actual time=1.748..4.222 rows=472 loops=1)
+        Buffers: shared hit=2178
+        ->  Seq Scan on localities l  (cost=0.00..2.50 rows=1 width=2) (actual time=0.005..0.012 rows=1 loops=1)
+              Filter: (((locality_name)::text = 'Koramangala'::text) AND (city_id = 1))
+              Rows Removed by Filter: 99
+              Buffers: shared hit=1
+        ->  Bitmap Heap Scan on properties p  (cost=742.48..5552.60 rows=298 width=34) (actual time=1.741..4.153 rows=472 loops=1)
+              Recheck Cond: ((locality_id = l.locality_id) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+              Filter: (((furnishing)::text = ANY ('{SEMI_FURNISHED,FULLY_FURNISHED}'::text[])) AND ((status)::text = 'ACTIVE'::text))
+              Rows Removed by Filter: 1602
+              Heap Blocks: exact=2037
+              Buffers: shared hit=2177
+              ->  Bitmap Index Scan on idx_prop_search  (cost=0.00..742.40 rows=1368 width=0) (actual time=1.448..1.448 rows=2074 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+                    Buffers: shared hit=140
+Planning:
+  Buffers: shared hit=470
+Planning Time: 0.938 ms
+Execution Time: 4.513 ms
+=== R01 run 3 ===
+Sort  (cost=5570.33..5571.07 rows=298 width=32) (actual time=4.499..4.528 rows=472 loops=1)
+  Sort Key: p.price
+  Sort Method: quicksort  Memory: 54kB
+  Buffers: shared hit=2181
+  ->  Nested Loop  (cost=742.48..5558.08 rows=298 width=32) (actual time=1.731..4.312 rows=472 loops=1)
+        Buffers: shared hit=2178
+        ->  Seq Scan on localities l  (cost=0.00..2.50 rows=1 width=2) (actual time=0.004..0.012 rows=1 loops=1)
+              Filter: (((locality_name)::text = 'Koramangala'::text) AND (city_id = 1))
+              Rows Removed by Filter: 99
+              Buffers: shared hit=1
+        ->  Bitmap Heap Scan on properties p  (cost=742.48..5552.60 rows=298 width=34) (actual time=1.724..4.245 rows=472 loops=1)
+              Recheck Cond: ((locality_id = l.locality_id) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+              Filter: (((furnishing)::text = ANY ('{SEMI_FURNISHED,FULLY_FURNISHED}'::text[])) AND ((status)::text = 'ACTIVE'::text))
+              Rows Removed by Filter: 1602
+              Heap Blocks: exact=2037
+              Buffers: shared hit=2177
+              ->  Bitmap Index Scan on idx_prop_search  (cost=0.00..742.40 rows=1368 width=0) (actual time=1.415..1.416 rows=2074 loops=1)
+                    Index Cond: ((locality_id = l.locality_id) AND ((listing_type)::text = 'RENT'::text) AND (bhk = 2) AND (price <= '40000'::numeric))
+                    Buffers: shared hit=140
+Planning:
+  Buffers: shared hit=470
+Planning Time: 0.904 ms
+Execution Time: 4.588 ms

@@ -1,0 +1,9 @@
+ I1 property locality differs from project locality |          0
+ I2 price differs from latest price_change.new_price |          0
+ I3 listing by a seeker |          0
+ I4 enquiry/visit/shortlist by a non-seeker |          0
+ I5 site visit without enquiry by same user+property |          0
+ I6 enquiry/shortlist before listing was posted |          0
+ I7 price change that is not a cut or predates posting |          0
+ I8 info only: listings with NULL project_id |    1080429
+ I9 info only: projects with NULL rera_id |       3428
